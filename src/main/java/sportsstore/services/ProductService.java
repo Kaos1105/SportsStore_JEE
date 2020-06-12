@@ -33,7 +33,7 @@ public class ProductService {
     }
 
     @POST
-    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Consumes(MediaType.APPLICATION_JSON)
     public void create(ProductDTO entity) {
         try {
             ProductBO productBO = new ProductBO();
@@ -45,7 +45,7 @@ public class ProductService {
 
     @PUT
     @Path("{id}")
-    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Consumes(MediaType.APPLICATION_JSON)
     public void edit(@PathParam("id") Integer id, ProductDTO entity) {
         try {
             ProductBO productBO = new ProductBO();
@@ -68,7 +68,7 @@ public class ProductService {
 
     @GET
     @Path("{id}")
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Produces(MediaType.APPLICATION_JSON)
     public ProductDTO find(@PathParam("id") Integer id) {
         try {
             ProductBO productBO = new ProductBO();

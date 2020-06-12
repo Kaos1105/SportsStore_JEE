@@ -57,7 +57,7 @@ public class ProductDAO extends AbstractDAO {
         try {
             String query = "select * from Product where id=" + id;
             ResultSet rs = ProductDAO.super.ExecuteQuery(query, null);
-            if ((rs != null) && rs.next()) {
+            if (rs.next()) {
                 writeProductDTO(productDTO, rs);
             }
         } catch (Exception e) {
