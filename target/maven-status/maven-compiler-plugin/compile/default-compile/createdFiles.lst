@@ -1,0 +1,9 @@
+sportsstore\dto\ProductDTO.class
+sportsstore\dao\ProductDAO.class
+sportsstore\dbconnection\DBConnectionService.class
+sportsstore\bo\ProductBO.class
+sportsstore\dao\AbstractDAO.class
+sportsstore\sportsstore\JAXRSConfiguration.class
+sportsstore\services\ProductService.class
+sportsstore\dbconnection\DBConnection.class
+sportsstore\services\JavaEE8Resource.class
