@@ -49,7 +49,7 @@ public class ProductService {
     public void edit(@PathParam("id") Integer id, ProductDTO entity) {
         try {
             ProductBO productBO = new ProductBO();
-            productBO.editProduct(entity);
+            productBO.editProduct(id, entity);
         } catch (Exception e) {
             //
         }

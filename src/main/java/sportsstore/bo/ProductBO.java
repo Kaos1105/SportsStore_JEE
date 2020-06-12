@@ -53,9 +53,10 @@ public class ProductBO {
         }
     }
 
-    public boolean editProduct(ProductDTO product) throws Exception {
+    public boolean editProduct(Integer id, ProductDTO product) throws Exception {
         ProductDAO productDAO = null;
         try {
+            product.setId(id);
             productDAO = new ProductDAO();
             return productDAO.edit(product);
         } catch (Exception e) {

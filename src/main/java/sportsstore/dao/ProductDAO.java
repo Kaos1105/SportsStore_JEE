@@ -69,18 +69,9 @@ public class ProductDAO extends AbstractDAO {
 
     public boolean create(ProductDTO input) throws Exception {
         try {
-            StringBuffer sql = new StringBuffer();
-            sql.append("INSERT INTO product(product_id, product_name, notes)");
-            sql.append(" VALUES(?, ?, ?)");
-
-            PreparedStatement stmt = getConnection().prepareStatement(sql.toString());
-            stmt.setString(1, Integer.toString(input.getId()));
-            stmt.setString(2, input.getName());
-
-            stmt.execute();
-
-            stmt.close();
-
+            String query = "EXEC USP_InsertProduct ? , ? , ? , ? , ?";
+            ProductDAO.super.ExecuteNonQuery(query, new Object[] { input.getName(), input.getBrand(),
+                    input.getCategory(), input.getPrice(), input.getImportPrice() });
             return true;
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -90,17 +81,11 @@ public class ProductDAO extends AbstractDAO {
 
     public boolean edit(ProductDTO input) throws Exception {
         try {
-            StringBuffer sql = new StringBuffer();
-            sql.append("UPDATE product SET product_name=?, notes=? WHERE product_id=?");
-
-            PreparedStatement stmt = getConnection().prepareStatement(sql.toString());
-            stmt.setString(3, Integer.toString(input.getId()));
-            stmt.setString(1, input.getName());
-
-            stmt.execute();
-
-            stmt.close();
+            String query = "EXEC USP_UpdateProduct ? , ? , ? , ? , ? , ?";
+            ProductDAO.super.ExecuteNonQuery(query, new Object[] { input.getId(), input.getName(), input.getBrand(),
+                    input.getCategory(), input.getPrice(), input.getImportPrice() });
             return true;
+
         } catch (Exception e) {
             System.out.println(e.toString());
             throw e;
@@ -109,13 +94,8 @@ public class ProductDAO extends AbstractDAO {
 
     public boolean remove(Integer id) throws Exception {
         try {
-            StringBuffer sql = new StringBuffer();
-            sql.append("DELETE FROM product WHERE product_id = ?");
-
-            PreparedStatement stmt = getConnection().prepareStatement(sql.toString());
-            stmt.setString(1, id.toString());
-            stmt.execute();
-            stmt.close();
+            String query = "Delete from Product where Id=" + id;
+            ProductDAO.super.ExecuteNonQuery(query, null);
 
             return true;
         } catch (Exception e) {

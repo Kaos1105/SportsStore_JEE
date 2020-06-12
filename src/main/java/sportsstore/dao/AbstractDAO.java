@@ -108,7 +108,7 @@ public abstract class AbstractDAO {
                 }
             }
             rs = ps.executeQuery();
-            ps.close();
+            // ps.close();
         } catch (Exception e) {
             e.printStackTrace();
             rs = null;
@@ -135,7 +135,7 @@ public abstract class AbstractDAO {
                 }
             }
             rowAffected = ps.executeUpdate();
-            ps.close();
+            // ps.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -163,7 +163,7 @@ public abstract class AbstractDAO {
             while (rs.next()) {
                 result = rs.getObject(1);
             }
-            ps.close();
+            // ps.close();
             return result;
         } catch (Exception e) {
             e.printStackTrace();
