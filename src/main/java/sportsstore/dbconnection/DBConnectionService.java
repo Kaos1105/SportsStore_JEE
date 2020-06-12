@@ -18,11 +18,33 @@ public class DBConnectionService {
     public static Connection getConnection() throws NamingException, SQLException {
         Connection conn = null;
         try {
-            String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-            String URL = "jdbc:mysql://localhost:3306/test?autoReconnect=true&useSSL=false";
-            String username = "root";
-            String password = "123456";
+            String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+            //String URL = "jdbc:sqlserver://localhost;instance=sqlexpress;databaseName=SportsSportDev;integratedSecurity=true;";
+            String URL ="jdbc:sqlserver://localhost;databaseName=SportsSportDev;integratedSecurity=true;";
+            String username = "";
+            String password = "";
             
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(URL, username, password);
+            System.out.println("DB connected successfully!");
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+        } finally {
+            return conn;
+        }
+    }
+    public static Connection getConnection(String masterDB) throws NamingException, SQLException {
+        Connection conn = null;
+        try {
+            String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+            String URL = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=master;integratedSecurity=true;";
+            String username = "";
+            String password = "";
+
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(URL, username, password);
             System.out.println("DB connected successfully!");

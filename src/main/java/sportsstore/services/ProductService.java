@@ -30,34 +30,27 @@ import sportsstore.dto.ProductDTO;
 public class ProductService {
 
     public ProductService() {
-    
     }
 
     @POST
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public void create(ProductDTO entity) {
-        try
-        {
+        try {
             ProductBO productBO = new ProductBO();
             productBO.createProduct(entity);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             //
         }
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public void edit(@PathParam("id") Integer id, ProductDTO entity) {
-        try
-        {
+        try {
             ProductBO productBO = new ProductBO();
             productBO.editProduct(entity);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             //
         }
     }
@@ -65,43 +58,35 @@ public class ProductService {
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
-        try
-        {
+        try {
             ProductBO productBO = new ProductBO();
             productBO.removeProduct(id);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             //
         }
     }
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public ProductDTO find(@PathParam("id") Integer id) {
-        try
-        {
+        try {
             ProductBO productBO = new ProductBO();
             return productBO.getProductById(id);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             //
         }
         return null;
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<ProductDTO> findAll() {
-        try
-        {
+        try {
             ProductBO productBO = new ProductBO();
-            return productBO.getAllProducts();
-        }
-        catch (Exception e)
-        {
+            List<ProductDTO> result = productBO.getAllProducts();
+            return result;
+        } catch (Exception e) {
             //
         }
         return null;

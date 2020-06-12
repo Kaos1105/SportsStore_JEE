@@ -27,12 +27,17 @@
         </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-servlet</artifactId>
+            <artifactId>jersey-bundle</artifactId>
             <version>${jersey.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-json</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-servlet</artifactId>
             <version>${jersey.version}</version>
         </dependency>
         <dependency>
@@ -50,6 +55,11 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.20</version>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>8.2.2.jre8</version>
         </dependency>
     </dependencies>
     

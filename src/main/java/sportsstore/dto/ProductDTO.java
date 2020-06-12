@@ -5,46 +5,79 @@
  */
 package sportsstore.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author nguye
  */
+@XmlRootElement
 public class ProductDTO {
     private int id;
     private String name;
-    private String notes;
+    private String brand;
+    private String category;
+    private double price;
+    private double importPrice;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(int id, String name, String notes) {
+    public ProductDTO(final int id, final String name, final String brand, final String category, final double price,
+            final double importPrice) {
         this.id = id;
         this.name = name;
-        this.notes = notes;
+        this.brand = brand;
+        this.category = category;
+        this.price = price;
+        this.importPrice = importPrice;
     }
-    
+
     public int getId() {
         return id;
+    }
+
+    public void setId(final int id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public String getBrand() {
+        return brand;
     }
-    
+
+    public void setBrand(final String brand) {
+        this.brand = brand;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(final String category) {
+        this.category = category;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(final double price) {
+        this.price = price;
+    }
+
+    public double getImportPrice() {
+        return importPrice;
+    }
+
+    public void setImportPrice(final double importPrice) {
+        this.importPrice = importPrice;
+    }
 }
