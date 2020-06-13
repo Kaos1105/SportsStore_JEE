@@ -24,11 +24,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.codehaus.jettison.json.JSONObject;
-
 import sportsstore.bo.ProductBO;
-import sportsstore.dto.ErrorDTO;
 import sportsstore.dto.ProductDTO;
+import sportsstore.dto.ProductEnvelopeDTO;
 
 @Stateless
 @Path("products")
@@ -80,25 +78,30 @@ public class ProductService {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ProductDTO find(@PathParam("id") Integer id) {
+    public Response find(@PathParam("id") Integer id) {
         try {
             ProductBO productBO = new ProductBO();
-            return productBO.getProductById(id);
+            ProductDTO result = productBO.getProductById(id);
+            if (result.getName() != null)
+                return Response.ok().entity(result).header("Access-Control-Allow-Origin", "*").build();
         } catch (Exception e) {
             //
         }
-        return null;
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error getting item product").build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ProductDTO> findAll() {
+    public Response findAll() {
         try {
             ProductBO productBO = new ProductBO();
-            return productBO.getAllProducts();
+            ProductEnvelopeDTO result = new ProductEnvelopeDTO();
+            result.setProducts(productBO.getAllProducts());
+            if (!result.getProducts().isEmpty())
+                return Response.ok().entity(result).header("Access-Control-Allow-Origin", "*").build();
         } catch (Exception e) {
             //
         }
-        return null;
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error getting item product").build();
     }
 }
