@@ -28,7 +28,7 @@ import sportsstore.bo.ProductBO;
 import sportsstore.dto.ProductDTO;
 
 @Stateless
-@Path("product")
+@Path("products")
 public class ProductService {
 
     public ProductService() {
