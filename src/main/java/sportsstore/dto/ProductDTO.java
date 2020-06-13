@@ -5,11 +5,13 @@
  */
 package sportsstore.dto;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author nguye
+ * @author nguyenThanhDanh
  */
 @XmlRootElement
 public class ProductDTO {
@@ -19,18 +21,22 @@ public class ProductDTO {
     private String category;
     private double price;
     private double importPrice;
+    private int stock;
+    private Date dateAdded;
 
     public ProductDTO() {
     }
 
     public ProductDTO(final int id, final String name, final String brand, final String category, final double price,
-            final double importPrice) {
+            final double importPrice, final int stock, final Date dateAdded) {
         this.id = id;
         this.name = name;
         this.brand = brand;
         this.category = category;
         this.price = price;
         this.importPrice = importPrice;
+        this.stock = stock;
+        this.dateAdded = dateAdded;
     }
 
     public int getId() {
@@ -79,5 +85,21 @@ public class ProductDTO {
 
     public void setImportPrice(final double importPrice) {
         this.importPrice = importPrice;
+    }
+
+    public Date getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(Date dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }

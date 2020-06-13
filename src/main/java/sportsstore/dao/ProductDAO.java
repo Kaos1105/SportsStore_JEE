@@ -27,12 +27,14 @@ public class ProductDAO extends AbstractDAO {
     }
 
     public void writeProductDTO(ProductDTO productDTO, ResultSet rs) throws Exception {
-        productDTO.setId(rs.getInt(("id")));
+        productDTO.setId(rs.getInt("id"));
         productDTO.setName(rs.getString("name"));
         productDTO.setBrand(rs.getString("brand"));
-        productDTO.setCategory(rs.getString(("category")));
-        productDTO.setPrice(rs.getFloat(("price")));
-        productDTO.setImportPrice(rs.getFloat(("importPrice")));
+        productDTO.setCategory(rs.getString("category"));
+        productDTO.setPrice(rs.getFloat("price"));
+        productDTO.setImportPrice(rs.getFloat("importPrice"));
+        productDTO.setStock(rs.getInt("stock"));
+        productDTO.setDateAdded(rs.getDate("dateAdded"));
     }
 
     public List<ProductDTO> getAll() throws Exception {
@@ -47,7 +49,7 @@ public class ProductDAO extends AbstractDAO {
             }
         } catch (Exception e) {
             System.out.println(e.toString());
-            throw e;
+            // throw e;
         }
         return productDTOList;
     }
@@ -62,33 +64,37 @@ public class ProductDAO extends AbstractDAO {
             }
         } catch (Exception e) {
             System.out.println(e.toString());
-            throw e;
+            // throw e;
         }
         return productDTO;
     }
 
     public boolean create(ProductDTO input) throws Exception {
         try {
-            String query = "EXEC USP_InsertProduct ? , ? , ? , ? , ?";
-            ProductDAO.super.ExecuteNonQuery(query, new Object[] { input.getName(), input.getBrand(),
-                    input.getCategory(), input.getPrice(), input.getImportPrice() });
+            String query = "EXEC USP_InsertProduct ? , ? , ? , ? , ? , ? , ?";
+            ProductDAO.super.ExecuteNonQuery(query,
+                    new Object[] { input.getName(), input.getBrand(), input.getCategory(), input.getPrice(),
+                            input.getImportPrice(), input.getStock(), input.getDateAdded() });
             return true;
         } catch (Exception e) {
             System.out.println(e.toString());
-            throw e;
+            // throw e;
+            return false;
         }
     }
 
     public boolean edit(ProductDTO input) throws Exception {
         try {
-            String query = "EXEC USP_UpdateProduct ? , ? , ? , ? , ? , ?";
-            ProductDAO.super.ExecuteNonQuery(query, new Object[] { input.getId(), input.getName(), input.getBrand(),
-                    input.getCategory(), input.getPrice(), input.getImportPrice() });
+            String query = "EXEC USP_UpdateProduct ? , ? , ? , ? , ? , ? , ? , ?";
+            ProductDAO.super.ExecuteNonQuery(query,
+                    new Object[] { input.getId(), input.getName(), input.getBrand(), input.getCategory(),
+                            input.getPrice(), input.getImportPrice(), input.getStock(), input.getDateAdded() });
             return true;
 
         } catch (Exception e) {
             System.out.println(e.toString());
-            throw e;
+            // throw e;
+            return false;
         }
     }
 
@@ -100,7 +106,8 @@ public class ProductDAO extends AbstractDAO {
             return true;
         } catch (Exception e) {
             System.out.println(e.toString());
-            throw e;
+            // throw e;
+            return false;
         }
     }
 }

@@ -22,6 +22,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import sportsstore.bo.ProductBO;
 import sportsstore.dto.ProductDTO;
 
@@ -72,7 +74,8 @@ public class ProductService {
     public ProductDTO find(@PathParam("id") Integer id) {
         try {
             ProductBO productBO = new ProductBO();
-            return productBO.getProductById(id);
+            ProductDTO result = productBO.getProductById(id);
+            return result;
         } catch (Exception e) {
             //
         }
