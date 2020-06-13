@@ -27,8 +27,16 @@
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
     <filter>
+    <!-- The CORS filter with parameters -->
         <filter-name>CORS</filter-name>
         <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+          <!-- Note: All parameters are options, if omitted the CORS
+         Filter will fall back to the respective default values.
+        -->
+         <init-param>
+            <param-name>cors.supportedMethods</param-name>
+            <param-value>GET, POST, HEAD, PUT, DELETE</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>CORS</filter-name>
