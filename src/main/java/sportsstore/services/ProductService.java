@@ -11,7 +11,6 @@ package sportsstore.services;
  * @author Max
  */
 
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -83,7 +82,7 @@ public class ProductService {
             ProductBO productBO = new ProductBO();
             ProductDTO result = productBO.getProductById(id);
             if (result.getName() != null)
-                return Response.ok().entity(result).header("Access-Control-Allow-Origin", "*").build();
+                return Response.ok().entity(result).build();
         } catch (Exception e) {
             //
         }
@@ -98,7 +97,7 @@ public class ProductService {
             ProductEnvelopeDTO result = new ProductEnvelopeDTO();
             result.setProducts(productBO.getAllProducts());
             if (!result.getProducts().isEmpty())
-                return Response.ok().entity(result).header("Access-Control-Allow-Origin", "*").build();
+                return Response.ok().entity(result).build();
         } catch (Exception e) {
             //
         }

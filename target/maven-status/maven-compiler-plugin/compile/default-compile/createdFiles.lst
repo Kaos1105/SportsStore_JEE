@@ -8,3 +8,4 @@ sportsstore\sportsstore\JAXRSConfiguration.class
 sportsstore\services\ProductService.class
 sportsstore\services\JavaEE8Resource.class
 sportsstore\dto\ProductEnvelopeDTO.class
+sportsstore\helper\CORSUrl.class
