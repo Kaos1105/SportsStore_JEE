@@ -24,7 +24,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.codehaus.jettison.json.JSONObject;
+
 import sportsstore.bo.ProductBO;
+import sportsstore.dto.ErrorDTO;
 import sportsstore.dto.ProductDTO;
 
 @Stateless
@@ -36,36 +39,42 @@ public class ProductService {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(ProductDTO entity) {
+    public Response create(ProductDTO entity) {
         try {
             ProductBO productBO = new ProductBO();
-            productBO.createProduct(entity);
+            if (productBO.createProduct(entity))
+                return Response.ok().build();
         } catch (Exception e) {
             //
         }
+        return Response.status(Response.Status.BAD_REQUEST).entity("Error creating product").build();
     }
 
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void edit(@PathParam("id") Integer id, ProductDTO entity) {
+    public Response edit(@PathParam("id") Integer id, ProductDTO entity) {
         try {
             ProductBO productBO = new ProductBO();
-            productBO.editProduct(id, entity);
+            if (productBO.editProduct(id, entity))
+                return Response.ok().build();
         } catch (Exception e) {
             //
         }
+        return Response.status(Response.Status.BAD_REQUEST).entity("Error editing product").build();
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
+    public Response remove(@PathParam("id") Integer id) {
         try {
             ProductBO productBO = new ProductBO();
-            productBO.removeProduct(id);
+            if (productBO.removeProduct(id))
+                return Response.ok().build();
         } catch (Exception e) {
             //
         }
+        return Response.status(Response.Status.BAD_REQUEST).entity("Error editing product").build();
     }
 
     @GET
@@ -74,8 +83,7 @@ public class ProductService {
     public ProductDTO find(@PathParam("id") Integer id) {
         try {
             ProductBO productBO = new ProductBO();
-            ProductDTO result = productBO.getProductById(id);
-            return result;
+            return productBO.getProductById(id);
         } catch (Exception e) {
             //
         }
@@ -87,8 +95,7 @@ public class ProductService {
     public List<ProductDTO> findAll() {
         try {
             ProductBO productBO = new ProductBO();
-            List<ProductDTO> result = productBO.getAllProducts();
-            return result;
+            return productBO.getAllProducts();
         } catch (Exception e) {
             //
         }

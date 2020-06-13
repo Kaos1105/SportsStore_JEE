@@ -58,7 +58,8 @@ public class ProductBO {
         try {
             product.setId(id);
             productDAO = new ProductDAO();
-            if (productDAO.get(id) != null)
+            ProductDTO result = productDAO.get(id);
+            if (result.getName() == null)
                 return false;
             return productDAO.edit(product);
         } catch (Exception e) {
@@ -72,7 +73,8 @@ public class ProductBO {
         ProductDAO productDAO = null;
         try {
             productDAO = new ProductDAO();
-            if (productDAO.get(id) != null)
+            ProductDTO result = productDAO.get(id);
+            if (result.getName() == null)
                 return false;
             return productDAO.remove(id);
         } catch (Exception e) {
