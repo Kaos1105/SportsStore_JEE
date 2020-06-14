@@ -19,16 +19,16 @@ public class ProductDTO {
     private String name;
     private String brand;
     private String category;
-    private double price;
-    private double importPrice;
+    private long price;
+    private long importPrice;
     private int stock;
     private Date dateAdded;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(final int id, final String name, final String brand, final String category, final double price,
-            final double importPrice, final int stock, final Date dateAdded) {
+    public ProductDTO(final int id, final String name, final String brand, final String category, final long price,
+            final long importPrice, final int stock, final Date dateAdded) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -71,19 +71,19 @@ public class ProductDTO {
         this.category = category;
     }
 
-    public double getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(final double price) {
+    public void setPrice(final long price) {
         this.price = price;
     }
 
-    public double getImportPrice() {
+    public long getImportPrice() {
         return importPrice;
     }
 
-    public void setImportPrice(final double importPrice) {
+    public void setImportPrice(final long importPrice) {
         this.importPrice = importPrice;
     }
 

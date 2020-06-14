@@ -19,11 +19,10 @@ public class DBConnectionService {
         Connection conn = null;
         try {
             String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-            //String URL = "jdbc:sqlserver://localhost;instance=sqlexpress;databaseName=SportsSportDev;integratedSecurity=true;";
-            String URL ="jdbc:sqlserver://localhost;databaseName=SportsSportDev;integratedSecurity=true;";
+            String URL = "jdbc:sqlserver://localhost;databaseName=SportsStoreJEE;integratedSecurity=true;";
             String username = "";
             String password = "";
-            
+
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(URL, username, password);
             System.out.println("DB connected successfully!");
@@ -37,6 +36,7 @@ public class DBConnectionService {
             return conn;
         }
     }
+
     public static Connection getConnection(String masterDB) throws NamingException, SQLException {
         Connection conn = null;
         try {

@@ -30,8 +30,8 @@ public class ProductDAO extends AbstractDAO {
         productDTO.setName(rs.getString("name"));
         productDTO.setBrand(rs.getString("brand"));
         productDTO.setCategory(rs.getString("category"));
-        productDTO.setPrice(rs.getFloat("price"));
-        productDTO.setImportPrice(rs.getFloat("importPrice"));
+        productDTO.setPrice(rs.getLong("price"));
+        productDTO.setImportPrice(rs.getLong("importPrice"));
         productDTO.setStock(rs.getInt("stock"));
         productDTO.setDateAdded(rs.getDate("dateAdded"));
     }
