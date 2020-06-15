@@ -8,6 +8,7 @@ package sportsstore.bo;
 import java.util.List;
 import sportsstore.dao.ProductDAO;
 import sportsstore.dto.ProductDTO;
+import sportsstore.dto.ProductEnvelopeDTO;
 
 /**
  *
@@ -20,6 +21,19 @@ public class ProductBO {
         try {
             productDAO = new ProductDAO();
             return productDAO.getAll();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            productDAO.closeConnection();
+        }
+    }
+
+    public ProductEnvelopeDTO getFilteredProducts(int offset, int limit, String name, String brand, String category,
+            int stock) throws Exception {
+        ProductDAO productDAO = null;
+        try {
+            productDAO = new ProductDAO();
+            return productDAO.getFiltered(offset, limit, name, brand, category, stock);
         } catch (Exception e) {
             throw e;
         } finally {

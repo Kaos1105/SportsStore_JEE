@@ -9,7 +9,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import sportsstore.dto.ProductDTO;
+import sportsstore.dto.ProductEnvelopeDTO;
 
 /**
  *
@@ -51,6 +54,30 @@ public class ProductDAO extends AbstractDAO {
             // throw e;
         }
         return productDTOList;
+    }
+
+    public ProductEnvelopeDTO getFiltered(int offset, int limit, String name, String brand, String category, int stock)
+            throws Exception {
+        ProductEnvelopeDTO productEnvelope = new ProductEnvelopeDTO();
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        try {
+            String query = "EXEC USP_FilterProduct ? , ? , ? , ?";
+            ResultSet rs = ProductDAO.super.ExecuteQuery(query, new Object[] { name, brand, category, stock });
+            while (rs.next()) {
+                ProductDTO productDTO = new ProductDTO();
+                writeProductDTO(productDTO, rs);
+                productDTOList.add(productDTO);
+            }
+            productEnvelope.setResultCount(productDTOList.size());
+            productDTOList = productDTOList.stream().skip(offset) // Equivalent to SQL's offset
+                    .limit(limit) // Equivalent to SQL's limit
+                    .collect(Collectors.toList());
+            productEnvelope.setProducts(productDTOList);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            // throw e;
+        }
+        return productEnvelope;
     }
 
     public ProductDTO get(Integer id) throws Exception {

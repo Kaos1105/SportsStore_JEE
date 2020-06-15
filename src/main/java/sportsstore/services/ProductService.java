@@ -20,6 +20,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -42,9 +43,9 @@ public class ProductService {
             if (productBO.createProduct(entity))
                 return Response.ok().build();
         } catch (Exception e) {
-            //
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
         }
-        return Response.status(Response.Status.BAD_REQUEST).entity("Error creating product").build();
+        return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
     @PUT
@@ -56,9 +57,9 @@ public class ProductService {
             if (productBO.editProduct(id, entity))
                 return Response.ok().build();
         } catch (Exception e) {
-            //
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
         }
-        return Response.status(Response.Status.BAD_REQUEST).entity("Error editing product").build();
+        return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
     @DELETE
@@ -69,38 +70,58 @@ public class ProductService {
             if (productBO.removeProduct(id))
                 return Response.ok().build();
         } catch (Exception e) {
-            //
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
         }
-        return Response.status(Response.Status.BAD_REQUEST).entity("Error editing product").build();
+        return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response find(@PathParam("id") Integer id) {
+        ProductBO productBO = new ProductBO();
+        ProductDTO result = new ProductDTO();
         try {
-            ProductBO productBO = new ProductBO();
-            ProductDTO result = productBO.getProductById(id);
+            result = productBO.getProductById(id);
             if (result.getName() != null)
                 return Response.ok().entity(result).build();
         } catch (Exception e) {
-            //
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
         }
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error getting item product").build();
+        return Response.status(Response.Status.NOT_FOUND).entity(result).build();
     }
+
+    // @GET
+    // @Produces(MediaType.APPLICATION_JSON)
+    // public Response findAll() {
+    // try {
+    // ProductBO productBO = new ProductBO();
+    // ProductEnvelopeDTO result = new ProductEnvelopeDTO();
+    // result.setProducts(productBO.getAllProducts());
+    // if (!result.getProducts().isEmpty())
+    // return Response.ok().entity(result).build();
+    // } catch (Exception e) {
+    // //
+    // }
+    // return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error
+    // getting item product").build();
+    // }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findAll() {
+    public Response filterProduct(@QueryParam("offset") int offset, @QueryParam("limit") int limit,
+            @QueryParam("name") String name, @QueryParam("brand") String brand, @QueryParam("category") String category,
+            @QueryParam("stock") int stock) {
+        ProductBO productBO = new ProductBO();
+        ProductEnvelopeDTO result = new ProductEnvelopeDTO();
         try {
-            ProductBO productBO = new ProductBO();
-            ProductEnvelopeDTO result = new ProductEnvelopeDTO();
-            result.setProducts(productBO.getAllProducts());
+            result = productBO.getFilteredProducts(offset, limit, name, brand, category, stock);
             if (!result.getProducts().isEmpty())
                 return Response.ok().entity(result).build();
         } catch (Exception e) {
             //
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
         }
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error getting item product").build();
+        return Response.status(Response.Status.NOT_FOUND).entity(result).build();
     }
 }
