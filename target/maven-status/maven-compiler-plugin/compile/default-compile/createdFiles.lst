@@ -1,10 +1,13 @@
+sportsstore\dao\ProductOptionsDAO.class
+sportsstore\dto\ProductOptionsDTO.class
+sportsstore\dto\ErrorDTO.class
+sportsstore\sportsstore\JAXRSConfiguration.class
+sportsstore\services\ProductService.class
+sportsstore\dto\ProductEnvelopeDTO.class
 sportsstore\dto\ProductDTO.class
+sportsstore\services\ProductOptionsService.class
 sportsstore\dao\ProductDAO.class
 sportsstore\dbconnection\DBConnectionService.class
 sportsstore\bo\ProductBO.class
 sportsstore\dao\AbstractDAO.class
-sportsstore\dto\ErrorDTO.class
-sportsstore\sportsstore\JAXRSConfiguration.class
-sportsstore\services\ProductService.class
 sportsstore\services\JavaEE8Resource.class
-sportsstore\dto\ProductEnvelopeDTO.class
