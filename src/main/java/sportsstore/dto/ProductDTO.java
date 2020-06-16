@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author nguyenThanhDanh
  */
-@XmlRootElement(name = "ProductDTO")
+// @XmlRootElement(name = "ProductDTO")
 public class ProductDTO {
     private int id;
     private String name;

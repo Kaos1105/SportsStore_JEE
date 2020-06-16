@@ -69,9 +69,10 @@ public class ProductDAO extends AbstractDAO {
                 productDTOList.add(productDTO);
             }
             productEnvelope.setResultCount(productDTOList.size());
-            productDTOList = productDTOList.stream().skip(offset) // Equivalent to SQL's offset
-                    .limit(limit) // Equivalent to SQL's limit
-                    .collect(Collectors.toList());
+            if (limit != 0)
+                productDTOList = productDTOList.stream().skip(offset) // Equivalent to SQL's offset
+                        .limit(limit) // Equivalent to SQL's limit
+                        .collect(Collectors.toList());
             productEnvelope.setProducts(productDTOList);
         } catch (Exception e) {
             System.out.println(e.toString());
