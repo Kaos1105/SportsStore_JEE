@@ -5,20 +5,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import com.sun.jersey.core.header.FormDataContentDisposition;
 
 public class FileUpload {
-    public static File uploadFile(InputStream uploadedInputStream, FormDataContentDisposition fileDetails) {
-        System.out.println(fileDetails.getFileName());
-
-        String uploadedFileLocation = "E://uploaded/" + fileDetails.getFileName();
+    public static File uploadFile(InputStream uploadedInputStream, String filePath) {
 
         try {
-            OutputStream out = new FileOutputStream(new File(uploadedFileLocation));
+            OutputStream out = new FileOutputStream(new File(filePath));
             int read = 0;
             byte[] bytes = new byte[1024];
 
-            out = new FileOutputStream(new File(uploadedFileLocation));
+            out = new FileOutputStream(new File(filePath));
             while ((read = uploadedInputStream.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }
@@ -27,7 +23,7 @@ public class FileUpload {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        File result = new File(uploadedFileLocation);
+        File result = new File(filePath);
         return result;
     }
 }

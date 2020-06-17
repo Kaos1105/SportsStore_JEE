@@ -2,7 +2,7 @@ package sportsstore.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-// @XmlRootElement(name = "PhotoDTO")
+@XmlRootElement(name = "PhotoDTO")
 public class PhotoDTO {
     private String id;
     private String url;

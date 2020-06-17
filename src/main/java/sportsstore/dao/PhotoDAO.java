@@ -10,16 +10,19 @@ import sportsstore.helper.IPhotoAccessor;
 import sportsstore.helper.PhotoAccessor;
 
 public class PhotoDAO extends AbstractDAO {
-    protected IPhotoAccessor photoAccessor;
+    protected static IPhotoAccessor photoAccessor;
 
     public PhotoDAO() throws Exception {
+    }
 
+    protected static IPhotoAccessor getPhotoAccessor() {
+        if (photoAccessor == null)
+            photoAccessor = new PhotoAccessor();
+        return photoAccessor;
     }
 
     public PhotoDAO(Connection conn) {
         super(conn);
-        if (photoAccessor == null)
-            photoAccessor = new PhotoAccessor();
     }
 
     public void writePhotoDTO(PhotoDTO photoDTO, ResultSet rs) throws Exception {
@@ -30,7 +33,7 @@ public class PhotoDAO extends AbstractDAO {
 
     public PhotoDTO addPhoto(File file, Integer id) throws Exception {
         try {
-            PhotoUploadResultDTO result = photoAccessor.AddPhoto(file);
+            PhotoUploadResultDTO result = getPhotoAccessor().AddPhoto(file);
             boolean isMain = true;
 
             PhotoDTO photo = new PhotoDTO(result.getPublicId(), result.getUrl(), id.toString());

@@ -3,9 +3,6 @@ package sportsstore.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import sportsstore.dto.ProductOptionsDTO;
 
 public class ProductOptionsDAO extends AbstractDAO {

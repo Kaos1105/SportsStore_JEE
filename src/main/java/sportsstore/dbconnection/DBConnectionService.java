@@ -32,9 +32,8 @@ public class DBConnectionService {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
-        } finally {
-            return conn;
         }
+        return conn;
     }
 
     public static Connection getConnection(String masterDB) throws NamingException, SQLException {
@@ -54,8 +53,7 @@ public class DBConnectionService {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
-        } finally {
-            return conn;
         }
+        return conn;
     }
 }
