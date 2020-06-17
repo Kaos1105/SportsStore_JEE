@@ -5,9 +5,6 @@
  */
 package sportsstore.services;
 
-import java.io.File;
-import java.io.InputStream;
-
 /**
  * REST Web Service
  *
@@ -22,12 +19,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.sun.jersey.core.header.ContentDisposition;
 import sportsstore.bo.PhotoBO;
 import sportsstore.dto.PhotoDTO;
-import sportsstore.helper.FileUpload;
-
-import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
 
 @Stateless
@@ -50,17 +43,16 @@ public class PhotoService {
         PhotoBO photoBO = new PhotoBO();
         PhotoDTO result = new PhotoDTO();
 
-        FormDataBodyPart filePart = form.getField("file");
-        FormDataBodyPart idForm = form.getField("id");
-        String id = idForm.getValue();
-        ContentDisposition headerOfFilePart = filePart.getContentDisposition();
-        String filePath = "E://uploaded/" + headerOfFilePart.getFileName();
+        // FormDataBodyPart filePart = form.getField("file");
+        // FormDataBodyPart idForm = form.getField("id");
+        // String id = idForm.getValue();
+        // ContentDisposition headerOfFilePart = filePart.getContentDisposition();
+        // String filePath = "E://uploaded/" + headerOfFilePart.getFileName();
 
-        InputStream fileInputStream = filePart.getValueAs(InputStream.class);
-        File uploadFile = FileUpload.uploadFile(fileInputStream, filePath);
-
+        // InputStream fileInputStream = filePart.getValueAs(InputStream.class);
+        // File uploadFile = FileUpload.uploadFile(fileInputStream, filePath);
         try {
-            result = photoBO.createPhoto(uploadFile, Integer.parseInt(id));
+            result = photoBO.createPhoto(form);
             if (result.getId() != "")
                 return Response.ok().entity(result).build();
         } catch (Exception e) {
