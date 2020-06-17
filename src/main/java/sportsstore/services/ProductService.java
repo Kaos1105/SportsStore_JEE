@@ -27,7 +27,6 @@ import javax.ws.rs.core.Response;
 import sportsstore.bo.ProductBO;
 import sportsstore.dto.ProductDTO;
 import sportsstore.dto.ProductEnvelopeDTO;
-import sportsstore.dto.ProductOptionsDTO;
 
 @Stateless
 @Path("products")
