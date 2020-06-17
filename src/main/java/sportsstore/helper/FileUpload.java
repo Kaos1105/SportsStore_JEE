@@ -5,8 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import com.sun.jersey.core.header.FormDataContentDisposition;
 
 public class FileUpload {
     public static File uploadFile(InputStream uploadedInputStream, FormDataContentDisposition fileDetails) {

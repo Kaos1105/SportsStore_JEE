@@ -26,9 +26,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.glassfish.jersey.media.multipart.FormDataParam;
-
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
 import sportsstore.bo.PhotoBO;
 import sportsstore.dto.PhotoDTO;
 import sportsstore.helper.FileUpload;
@@ -40,21 +39,24 @@ public class PhotoService {
     public PhotoService() {
     }
 
-    @POST
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response uploadImage(@FormDataParam("file") InputStream uploadedInputStream,
-            @FormDataParam("file") FormDataContentDisposition fileDetails, Integer id) {
-        File uploadFile = FileUpload.uploadFile(uploadedInputStream, fileDetails);
-        PhotoBO photoBO = new PhotoBO();
-        PhotoDTO result = new PhotoDTO();
-        try {
-            result = photoBO.createPhoto(uploadFile, id);
-            if (result.getId() != "")
-                return Response.ok().entity(result).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
-        }
-        return Response.status(Response.Status.NOT_FOUND).build();
-    }
+    // @POST
+    // @Path("/upload")
+    // @Consumes(MediaType.MULTIPART_FORM_DATA)
+    // @Produces(MediaType.APPLICATION_JSON)
+    // public Response uploadImage(@FormDataParam("file") InputStream
+    // uploadedInputStream,
+    // @FormDataParam("file") FormDataContentDisposition fileDetails, Integer id) {
+    // File uploadFile = FileUpload.uploadFile(uploadedInputStream, fileDetails);
+    // PhotoBO photoBO = new PhotoBO();
+    // PhotoDTO result = new PhotoDTO();
+    // try {
+    // result = photoBO.createPhoto(uploadFile, id);
+    // if (result.getId() != "")
+    // return Response.ok().entity(result).build();
+    // } catch (Exception e) {
+    // return
+    // Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
+    // }
+    // return Response.status(Response.Status.NOT_FOUND).build();
+    // }
 }
