@@ -1,0 +1,452 @@
+{
+	"info": {
+		"_postman_id": "1443c4a2-80e2-41af-a1a4-f0a6e48d09b5",
+		"name": "java ee",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/products/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product With Filtered",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "offset",
+						"value": "5",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "limit",
+						"value": "5",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"products"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "category",
+							"value": "Ghế",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product Options",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/productOptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"productOptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/products/12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"products",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Product",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "89303622-b6e4-4b89-9e2a-db7b9c96e8e2",
+						"exec": [
+							"var moment = require(\"moment\");\r",
+							"\r",
+							"pm.environment.set('dateAdded', moment().toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"brand\": \"test api 1\",\r\n    \"category\": \"test 1\",\r\n    \"importPrice\": \"50.0\",\r\n    \"name\": \"test 2\",\r\n    \"price\": \"100.0\",\r\n    \"stock\": \"15\",\r\n    \"dateAdded\": \"{{dateAdded}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Product",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"brand\": \"test put\",\r\n    \"category\": \"test put\",\r\n    \"importPrice\": \"50.0\",\r\n    \"name\": \"test put\",\r\n    \"price\": \"100.0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/products/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"products",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Photo",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "bd10f394-dcd5-4993-9a51-3c2028ffe623",
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b5c55bb-77b9-4eea-aff7-d2fcfb99379b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "File",
+							"type": "file",
+							"src": "/C:/Users/troll/Downloads/Pictures/Hulk_1.jpg"
+						},
+						{
+							"key": "id",
+							"value": "2",
+							"type": "text",
+							"disabled": true
+						}
+					],
+					"options": {
+						"formdata": {}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/photo/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"photo",
+						"1"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Photo",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "21cbe763-e147-4386-b8a1-ddfab02faaa6",
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "eab6e99b-8ee4-4435-9965-574d48670063",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "multipart/form-data",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/troll/Downloads/Pictures/Hulk_1.jpg",
+							"disabled": true
+						},
+						{
+							"key": "id",
+							"value": "2",
+							"type": "text",
+							"disabled": true
+						}
+					],
+					"options": {
+						"formdata": {}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/photo/ejicbymwghmmghxfon4x",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"photo",
+						"ejicbymwghmmghxfon4x"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set Main Photo Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f4a0a216-bb18-4821-a7ec-1a5431aabbd9",
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6066e1df-9b63-402f-a12d-0e0dcfb37d37",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/photo/ejicbymwghmmghxfon4x",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"photo",
+						"ejicbymwghmmghxfon4x"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
