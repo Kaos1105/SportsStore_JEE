@@ -6,8 +6,11 @@
 package sportsstore.bo;
 
 import java.util.List;
+
+import sportsstore.dao.PhotoDAO;
 import sportsstore.dao.ProductDAO;
 import sportsstore.dao.ProductOptionsDAO;
+import sportsstore.dto.PhotoDTO;
 import sportsstore.dto.ProductDTO;
 import sportsstore.dto.ProductEnvelopeDTO;
 import sportsstore.dto.ProductOptionsDTO;
@@ -20,9 +23,25 @@ public class ProductBO {
 
     public List<ProductDTO> getAllProducts() throws Exception {
         ProductDAO productDAO = null;
+        PhotoDAO photoDAO = null;
+
         try {
             productDAO = new ProductDAO();
-            return productDAO.getAll();
+            photoDAO = new PhotoDAO();
+
+            List<ProductDTO> result = productDAO.getAll();
+
+            // set product photos, image
+            for (ProductDTO productDTO : result) {
+                productDTO.setPhotos(photoDAO.getAll(productDTO.getId().toString()));
+                if (!productDTO.getPhotos().isEmpty()) {
+                    for (PhotoDTO photoDTO : productDTO.getPhotos()) {
+                        if (photoDTO.isMain())
+                            productDTO.setImage(photoDTO.getUrl());
+                    }
+                }
+            }
+            return result;
         } catch (Exception e) {
             throw e;
         } finally {
@@ -33,9 +52,25 @@ public class ProductBO {
     public ProductEnvelopeDTO getFilteredProducts(int offset, int limit, String name, String brand, String category,
             int stock) throws Exception {
         ProductDAO productDAO = null;
+        PhotoDAO photoDAO = null;
+
         try {
             productDAO = new ProductDAO();
-            return productDAO.getFiltered(offset, limit, name, brand, category, stock);
+            photoDAO = new PhotoDAO();
+
+            ProductEnvelopeDTO result = productDAO.getFiltered(offset, limit, name, brand, category, stock);
+
+            // set product photos, image
+            for (ProductDTO productDTO : result.getProducts()) {
+                productDTO.setPhotos(photoDAO.getAll(productDTO.getId().toString()));
+                if (!productDTO.getPhotos().isEmpty()) {
+                    for (PhotoDTO photoDTO : productDTO.getPhotos()) {
+                        if (photoDTO.isMain())
+                            productDTO.setImage(photoDTO.getUrl());
+                    }
+                }
+            }
+            return result;
         } catch (Exception e) {
             throw e;
         } finally {
@@ -58,9 +93,23 @@ public class ProductBO {
 
     public ProductDTO getProductById(Integer id) throws Exception {
         ProductDAO productDAO = null;
+        PhotoDAO photoDAO = null;
+
         try {
             productDAO = new ProductDAO();
-            return productDAO.get(id);
+            photoDAO = new PhotoDAO();
+
+            ProductDTO result = productDAO.get(id);
+            // set product photos, image
+            result.setPhotos(photoDAO.getAll(result.getId().toString()));
+            if (!result.getPhotos().isEmpty()) {
+                for (PhotoDTO photoDTO : result.getPhotos()) {
+                    if (photoDTO.isMain())
+                        result.setImage(photoDTO.getUrl());
+                }
+            }
+
+            return result;
         } catch (Exception e) {
             throw e;
         } finally {

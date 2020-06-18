@@ -76,4 +76,18 @@ public class PhotoService {
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
+
+    @POST
+    @Path("{id}")
+    public Response setMain(@PathParam("id") String id) {
+        try {
+            PhotoBO photoBO = new PhotoBO();
+            if (photoBO.setMainPhoto(id))
+                return Response.ok().build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
+        }
+        return Response.status(Response.Status.BAD_REQUEST).build();
+    }
+
 }

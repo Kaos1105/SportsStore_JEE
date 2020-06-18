@@ -6,6 +6,7 @@
 package sportsstore.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -15,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "ProductDTO")
 public class ProductDTO {
-    private int id;
+    private Integer id;
     private String name;
     private String brand;
     private String category;
@@ -24,7 +25,27 @@ public class ProductDTO {
     private int stock;
     private Date dateAdded;
 
+    // Photo
+    private String image;
+    private List<PhotoDTO> photos;
+
     public ProductDTO() {
+    }
+
+    public List<PhotoDTO> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<PhotoDTO> photos) {
+        this.photos = photos;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public ProductDTO(final int id, final String name, final String brand, final String category, final long price,
@@ -39,7 +60,7 @@ public class ProductDTO {
         this.dateAdded = dateAdded;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

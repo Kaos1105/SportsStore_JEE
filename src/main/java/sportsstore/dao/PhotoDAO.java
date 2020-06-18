@@ -3,6 +3,8 @@ package sportsstore.dao;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import sportsstore.dto.PhotoDTO;
 import sportsstore.dto.PhotoUploadResultDTO;
@@ -29,6 +31,25 @@ public class PhotoDAO extends AbstractDAO {
         photoDTO.setId(rs.getString("id"));
         photoDTO.setUrl(rs.getString("url"));
         photoDTO.setMain(rs.getBoolean("isMain"));
+        photoDTO.setProductId(rs.getString("ProductId"));
+    }
+
+    public List<PhotoDTO> getAll(String id) throws Exception {
+        ArrayList<PhotoDTO> photoDTOs = new ArrayList<>();
+
+        try {
+            String query = "  select * from Photo where ProductId =" + id;
+            ResultSet rs = PhotoDAO.super.ExecuteQuery(query, null);
+            while (rs.next()) {
+                PhotoDTO photoDTO = new PhotoDTO();
+                writePhotoDTO(photoDTO, rs);
+                photoDTOs.add(photoDTO);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            // throw e;
+        }
+        return photoDTOs;
     }
 
     public PhotoDTO get(String id) throws Exception {
@@ -91,6 +112,49 @@ public class PhotoDAO extends AbstractDAO {
             System.out.println(e.toString());
             // throw e;
 
+        }
+        return false;
+    }
+
+    public boolean setMain(String id) throws Exception {
+        try {
+            // set main in the database
+            String query = "update Photo set IsMain=1 where id = N'" + id + "'";
+            if (PhotoDAO.super.ExecuteNonQuery(query, null) == 1)
+                return true;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            // throw e;
+
+        }
+        return false;
+    }
+
+    public PhotoDTO findMainFromProductId(String id) throws Exception {
+        PhotoDTO photoDTO = new PhotoDTO();
+
+        try {
+            String query = "  select * from Photo where ProductId =" + id + "and IsMain=1";
+            ResultSet rs = PhotoDAO.super.ExecuteQuery(query, null);
+            if (rs.next()) {
+                writePhotoDTO(photoDTO, rs);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            // throw e;
+        }
+        return photoDTO;
+    }
+
+    public boolean setMainFalse(String id) throws Exception {
+        try {
+            // set main false in the database
+            String query = "update Photo set IsMain=0 where id = N'" + id + "'";
+            if (PhotoDAO.super.ExecuteNonQuery(query, null) == 1)
+                return true;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            // throw e;
         }
         return false;
     }

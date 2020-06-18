@@ -17,7 +17,7 @@ public class PhotoBO {
         ProductDAO productDAO = null;
         PhotoDAO photoDAO = null;
 
-        FormDataBodyPart filePart = form.getField("file");
+        FormDataBodyPart filePart = form.getField("File");
         // FormDataBodyPart idForm = form.getField("id");
         // Integer id = Integer.parseInt(idForm.getValue());
 
@@ -57,4 +57,26 @@ public class PhotoBO {
         return false;
     }
 
+    public boolean setMainPhoto(String id) throws Exception {
+        PhotoDAO photoDAO = null;
+        try {
+            photoDAO = new PhotoDAO();
+            PhotoDTO result = photoDAO.get(id);
+            if (result.getId() != "") {
+                // find the current Main photo
+                PhotoDTO currentMain = photoDAO.findMainFromProductId(result.getProductId());
+                // set it to false
+                if (photoDAO.setMainFalse(currentMain.getId())) {
+                    // set target to true
+                    return photoDAO.setMain(id);
+                }
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            photoDAO.closeConnection();
+        }
+        return false;
+    }
 }

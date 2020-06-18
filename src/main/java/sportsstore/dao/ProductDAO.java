@@ -40,7 +40,7 @@ public class ProductDAO extends AbstractDAO {
     }
 
     public List<ProductDTO> getAll() throws Exception {
-        ArrayList<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
+        ArrayList<ProductDTO> productDTOList = new ArrayList<>();
         try {
             String query = "select * from Product";
             ResultSet rs = ProductDAO.super.ExecuteQuery(query, null);
