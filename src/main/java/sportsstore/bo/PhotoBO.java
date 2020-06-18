@@ -13,13 +13,13 @@ import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
 
 public class PhotoBO {
-    public PhotoDTO createPhoto(FormDataMultiPart form) throws Exception {
+    public PhotoDTO createPhoto(FormDataMultiPart form, Integer id) throws Exception {
         ProductDAO productDAO = null;
         PhotoDAO photoDAO = null;
 
         FormDataBodyPart filePart = form.getField("file");
-        FormDataBodyPart idForm = form.getField("id");
-        Integer id = Integer.parseInt(idForm.getValue());
+        // FormDataBodyPart idForm = form.getField("id");
+        // Integer id = Integer.parseInt(idForm.getValue());
 
         InputStream inputStream = filePart.getValueAs(InputStream.class);
 
@@ -40,4 +40,21 @@ public class PhotoBO {
             photoDAO.closeConnection();
         }
     }
+
+    public boolean removePhoto(String id) throws Exception {
+        PhotoDAO photoDAO = null;
+        try {
+            photoDAO = new PhotoDAO();
+            PhotoDTO result = photoDAO.get(id);
+            if (result.getId() != "")
+                return photoDAO.remove(id);
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            photoDAO.closeConnection();
+        }
+        return false;
+    }
+
 }

@@ -31,6 +31,21 @@ public class PhotoDAO extends AbstractDAO {
         photoDTO.setMain(rs.getBoolean("isMain"));
     }
 
+    public PhotoDTO get(String id) throws Exception {
+        PhotoDTO photoDTO = new PhotoDTO();
+        try {
+            String query = "select * from Photo where id=N'" + id + "'";
+            ResultSet rs = PhotoDAO.super.ExecuteQuery(query, null);
+            if (rs.next()) {
+                writePhotoDTO(photoDTO, rs);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            // throw e;
+        }
+        return photoDTO;
+    }
+
     public PhotoDTO addPhoto(File file, Integer id) throws Exception {
         try {
             PhotoUploadResultDTO result = getPhotoAccessor().AddPhoto(file);
@@ -59,5 +74,24 @@ public class PhotoDAO extends AbstractDAO {
             System.out.println(e.toString());
         }
         return null;
+    }
+
+    public boolean remove(String id) throws Exception {
+        try {
+            // delete from cloud
+            String result = getPhotoAccessor().DeletePhoto(id);
+            if (result != "fail")
+            // delete from sever
+            {
+                String query = "Delete from Photo where id=N'" + id + "'";
+                if (PhotoDAO.super.ExecuteNonQuery(query, null) == 1)
+                    return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            // throw e;
+
+        }
+        return false;
     }
 }

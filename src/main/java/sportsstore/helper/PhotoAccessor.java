@@ -54,7 +54,7 @@ public class PhotoAccessor implements IPhotoAccessor {
         } catch (IOException e) {
             throw new Exception("Error Deleting");
         }
-        return deleteResult.get("result") == "ok" ? "ok" : "fail";
+        return deleteResult.get("result") != null ? deleteResult.get("result").toString() : "fail";
     }
 
 }
