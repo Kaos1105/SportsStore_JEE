@@ -135,7 +135,7 @@ public class ProductBO {
             product.setId(id);
             productDAO = new ProductDAO();
             ProductDTO result = productDAO.get(id);
-            if (result.getName() == null)
+            if (result.getName().isEmpty() || result.getName() == null)
                 return false;
             return productDAO.edit(product);
         } catch (Exception e) {
@@ -150,7 +150,7 @@ public class ProductBO {
         try {
             productDAO = new ProductDAO();
             ProductDTO result = productDAO.get(id);
-            if (result.getName() == null)
+            if (result.getName().isEmpty() || result.getName() == null)
                 return false;
             return productDAO.remove(id);
         } catch (Exception e) {

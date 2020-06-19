@@ -8,6 +8,7 @@ import org.apache.commons.io.FileUtils;
 import sportsstore.dao.PhotoDAO;
 import sportsstore.dao.ProductDAO;
 import sportsstore.dto.PhotoDTO;
+import sportsstore.dto.ProductDTO;
 
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
@@ -29,7 +30,8 @@ public class PhotoBO {
 
         try {
             productDAO = new ProductDAO();
-            if (productDAO.get(id).getName() == "")
+            ProductDTO product = productDAO.get(id);
+            if (product.getName().isEmpty() || product.getName() == null)
                 return null;
             photoDAO = new PhotoDAO();
             return photoDAO.addPhoto(uploadFile, id);

@@ -38,7 +38,7 @@ public class PhotoDAO extends AbstractDAO {
         ArrayList<PhotoDTO> photoDTOs = new ArrayList<>();
 
         try {
-            String query = "  select * from Photo where ProductId =" + id;
+            String query = "select * from Photo where ProductId =" + id;
             ResultSet rs = PhotoDAO.super.ExecuteQuery(query, null);
             while (rs.next()) {
                 PhotoDTO photoDTO = new PhotoDTO();
@@ -88,9 +88,9 @@ public class PhotoDAO extends AbstractDAO {
 
             // add photo to the db
             String query2 = "EXEC USP_InsertPhoto ? , ? , ? , ?";
-            PhotoDAO.super.ExecuteNonQuery(query2,
-                    new Object[] { photo.getId(), photo.getUrl(), photo.isMain(), photo.getProductId() });
-            return photo;
+            if (PhotoDAO.super.ExecuteNonQuery(query2,
+                    new Object[] { photo.getId(), photo.getUrl(), photo.isMain(), photo.getProductId() }) == 1)
+                return photo;
         } catch (Exception e) {
             System.out.println(e.toString());
         }
