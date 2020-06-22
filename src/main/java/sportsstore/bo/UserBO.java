@@ -50,4 +50,37 @@ public class UserBO {
         }
         return false;
     }
+
+    public boolean setUserMain(String email) throws Exception {
+        UserDAO userDAO = null;
+        try {
+            userDAO = new UserDAO();
+            UserDTO userDTO = userDAO.getUserFromEmail(email);
+            if (userDTO.getUserName() != null || !userDTO.getUserName().isEmpty()) {
+                return userDAO.setAdmin(email);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            userDAO.closeConnection();
+        }
+        return false;
+    }
+
+    public boolean deleteUser(String email) throws Exception {
+        UserDAO userDAO = null;
+        try {
+            userDAO = new UserDAO();
+            UserDTO userDTO = userDAO.getUserFromEmail(email);
+            if (userDTO.getUserName() != null || !userDTO.getUserName().isEmpty()) {
+                return userDAO.deleteUser(email);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            userDAO.closeConnection();
+        }
+        return false;
+    }
+
 }

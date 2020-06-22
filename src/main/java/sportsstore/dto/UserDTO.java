@@ -8,9 +8,18 @@ public class UserDTO {
     private String userName;
     private String email;
     private String password;
+    private boolean isAdmin;
 
     public String getId() {
         return id;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public String getPassword() {

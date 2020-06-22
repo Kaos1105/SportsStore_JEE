@@ -20,6 +20,7 @@ public class UserDAO extends AbstractDAO {
         userDTO.setUserName(rs.getString("UserName"));
         userDTO.setEmail(rs.getString("Email"));
         userDTO.setPassword(rs.getString("Password"));
+        userDTO.setAdmin(rs.getBoolean("IsAdmin"));
     }
 
     public UserDTO getUserFromName(String userName) throws Exception {
@@ -63,6 +64,31 @@ public class UserDAO extends AbstractDAO {
         } catch (Exception e) {
             // System.out.println(e.toString());
             e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean setAdmin(String email) throws Exception {
+        try {
+            String query = "update Users set IsAdmin = 1 where Email = N'" + email + "'";
+            if (UserDAO.super.ExecuteNonQuery(query, null) == 1)
+                return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteUser(String email) throws Exception {
+        UserDTO userDTO = getUserFromEmail(email);
+        if (userDTO.getUserName() != null || !userDTO.getUserName().isEmpty() && !userDTO.isAdmin()) {
+            try {
+                String query = "delete from Users where Email = N'" + email + "'";
+                if (UserDAO.super.ExecuteNonQuery(query, null) == 1)
+                    return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }

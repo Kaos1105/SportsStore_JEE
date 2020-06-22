@@ -51,7 +51,7 @@ public class UserService {
     }
 
     @POST
-    @Path("{login}")
+    @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(UserDTO entity) {
         try {
@@ -64,4 +64,16 @@ public class UserService {
         return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response delete(@QueryParam("email") String email) {
+        try {
+            UserBO userBO = new UserBO();
+            if (userBO.deleteUser(email))
+                return Response.ok().build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
+        }
+        return Response.status(Response.Status.UNAUTHORIZED).build();
+    }
 }
