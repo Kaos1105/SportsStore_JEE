@@ -32,7 +32,8 @@ public class UserDAO extends AbstractDAO {
                 writeUserDTO(userDTO, rs);
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return userDTO;
     }
@@ -48,7 +49,8 @@ public class UserDAO extends AbstractDAO {
                 writeUserDTO(userDTO, rs);
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return userDTO;
     }
@@ -59,7 +61,8 @@ public class UserDAO extends AbstractDAO {
             if (UserDAO.super.ExecuteNonQuery(query, new Object[] { userName, email, hashedPassword }) == 1)
                 return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return false;
     }

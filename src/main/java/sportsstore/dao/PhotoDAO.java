@@ -46,8 +46,8 @@ public class PhotoDAO extends AbstractDAO {
                 photoDTOs.add(photoDTO);
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // throw e;
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return photoDTOs;
     }
@@ -61,8 +61,8 @@ public class PhotoDAO extends AbstractDAO {
                 writePhotoDTO(photoDTO, rs);
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // throw e;
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return photoDTO;
     }
@@ -92,7 +92,8 @@ public class PhotoDAO extends AbstractDAO {
                     new Object[] { photo.getId(), photo.getUrl(), photo.isMain(), photo.getProductId() }) == 1)
                 return photo;
         } catch (Exception e) {
-            System.out.println(e.toString());
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return null;
     }
@@ -109,9 +110,8 @@ public class PhotoDAO extends AbstractDAO {
                     return true;
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // throw e;
-
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return false;
     }
@@ -123,9 +123,8 @@ public class PhotoDAO extends AbstractDAO {
             if (PhotoDAO.super.ExecuteNonQuery(query, null) == 1)
                 return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // throw e;
-
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return false;
     }
@@ -140,8 +139,8 @@ public class PhotoDAO extends AbstractDAO {
                 writePhotoDTO(photoDTO, rs);
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // throw e;
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return photoDTO;
     }
@@ -153,8 +152,8 @@ public class PhotoDAO extends AbstractDAO {
             if (PhotoDAO.super.ExecuteNonQuery(query, null) == 1)
                 return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // throw e;
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return false;
     }

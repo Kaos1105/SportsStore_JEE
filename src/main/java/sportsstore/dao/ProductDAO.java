@@ -50,8 +50,8 @@ public class ProductDAO extends AbstractDAO {
                 productDTOList.add(productDTO);
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // throw e;
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return productDTOList;
     }
@@ -75,8 +75,8 @@ public class ProductDAO extends AbstractDAO {
                         .collect(Collectors.toList());
             productEnvelope.setProducts(productDTOList);
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // throw e;
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return productEnvelope;
     }
@@ -90,8 +90,8 @@ public class ProductDAO extends AbstractDAO {
                 writeProductDTO(productDTO, rs);
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // throw e;
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return productDTO;
     }
@@ -104,8 +104,8 @@ public class ProductDAO extends AbstractDAO {
                             input.getImportPrice(), input.getStock(), input.getDateAdded() }) == 1)
                 return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // throw e;
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return false;
     }
@@ -119,8 +119,8 @@ public class ProductDAO extends AbstractDAO {
                 return true;
 
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // throw e;
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return false;
     }
@@ -131,8 +131,8 @@ public class ProductDAO extends AbstractDAO {
             if (ProductDAO.super.ExecuteNonQuery(query, null) == 1)
                 return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // throw e;
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return false;
     }

@@ -34,8 +34,8 @@ public class ProductOptionsDAO extends AbstractDAO {
             productOptionsDTO.setCategoryOptions(categories);
             productOptionsDTO.setBrandOptions(brands);
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // throw e;
+            // System.out.println(e.toString());
+            e.printStackTrace();
         }
         return productOptionsDTO;
     }
