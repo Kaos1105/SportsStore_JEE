@@ -1,5 +1,9 @@
 package sportsstore.bo;
 
+import java.util.List;
+
+import javax.naming.spi.DirStateFactory.Result;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 import sportsstore.dao.UserDAO;
@@ -17,38 +21,43 @@ public class UserBO {
         return false;
     }
 
-    public boolean checkPassAndEmail(String email, String plainPassword) throws Exception {
+    public UserDTO checkPassAndEmail(String email, String plainPassword) throws Exception {
         UserDAO userDAO = null;
 
         try {
             userDAO = new UserDAO();
             UserDTO userDTO = userDAO.getUserFromEmail(email);
             if (userDTO != null) {
-                return checkPass(plainPassword, userDTO.getPassword());
+                if (checkPass(plainPassword, userDTO.getPassword()))
+                    return userDTO;
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             userDAO.closeConnection();
         }
-        return false;
+        return null;
     }
 
-    public boolean createUser(String userName, String email, String plainPassword) throws Exception {
+    public UserDTO createUser(String userName, String email, String plainPassword) throws Exception {
         UserDAO userDAO = null;
 
         try {
             userDAO = new UserDAO();
             UserDTO userDTO = userDAO.getUserFromEmail(email);
             if (userDTO.getUserName() == null || userDTO.getUserName().isEmpty()) {
-                return userDAO.createUser(userName, email, hashPassword(plainPassword));
+                if (userDAO.createUser(userName, email, hashPassword(plainPassword))) {
+                    UserDTO result = userDAO.getUserFromEmail(email);
+                    if (result != null)
+                        return result;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             userDAO.closeConnection();
         }
-        return false;
+        return null;
     }
 
     public boolean setUserMain(String email) throws Exception {
@@ -83,4 +92,17 @@ public class UserBO {
         return false;
     }
 
+    public List<UserDTO> getAllEmployees() throws Exception {
+        UserDAO userDAO = null;
+        try {
+            userDAO = new UserDAO();
+
+            List<UserDTO> result = userDAO.getEmployees();
+            return result;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            userDAO.closeConnection();
+        }
+    }
 }

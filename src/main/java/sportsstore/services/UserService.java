@@ -5,6 +5,8 @@
  */
 package sportsstore.services;
 
+import java.util.List;
+
 /**
  * REST Web Service
  *
@@ -37,13 +39,30 @@ public class UserService {
     public UserService() {
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAll() {
+        try {
+            UserBO userBO = new UserBO();
+            List<UserDTO> result = userBO.getAllEmployees();
+            if (!result.isEmpty())
+                return Response.ok().entity(result).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
+        }
+        return Response.status(Response.Status.BAD_REQUEST).build();
+    }
+
     @POST
+    @Path("/register")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response register(UserDTO entity) {
         try {
             UserBO userBO = new UserBO();
-            if (userBO.createUser(entity.getUserName(), entity.getEmail(), entity.getPassword()))
-                return Response.ok().build();
+            UserDTO result = userBO.createUser(entity.getUserName(), entity.getEmail(), entity.getPassword());
+            if (result != null)
+                return Response.ok().entity(result).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
         }
@@ -53,11 +72,13 @@ public class UserService {
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response login(UserDTO entity) {
         try {
             UserBO userBO = new UserBO();
-            if (userBO.checkPassAndEmail(entity.getEmail(), entity.getPassword()))
-                return Response.ok().build();
+            UserDTO result = userBO.checkPassAndEmail(entity.getEmail(), entity.getPassword());
+            if (result != null)
+                return Response.ok().entity(result).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
         }
@@ -65,8 +86,9 @@ public class UserService {
     }
 
     @DELETE
+    @Path("{email}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response delete(@QueryParam("email") String email) {
+    public Response delete(@PathParam("email") String email) {
         try {
             UserBO userBO = new UserBO();
             if (userBO.deleteUser(email))

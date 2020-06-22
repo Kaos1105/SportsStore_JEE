@@ -2,6 +2,8 @@ package sportsstore.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import sportsstore.dto.UserDTO;
 
@@ -91,5 +93,22 @@ public class UserDAO extends AbstractDAO {
             }
         }
         return false;
+    }
+
+    public List<UserDTO> getEmployees() throws Exception {
+        List<UserDTO> employees = new ArrayList<>();
+        try {
+            String query = "select * from Users where IsAdmin=0";
+            ResultSet rs = UserDAO.super.ExecuteQuery(query, null);
+            while (rs.next()) {
+                UserDTO userDTO = new UserDTO();
+                writeUserDTO(userDTO, rs);
+                employees.add(userDTO);
+            }
+        } catch (Exception e) {
+            // System.out.println(e.toString());
+            e.printStackTrace();
+        }
+        return employees;
     }
 }
