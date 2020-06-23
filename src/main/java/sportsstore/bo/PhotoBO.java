@@ -5,13 +5,11 @@ import java.io.InputStream;
 
 import org.apache.commons.io.FileUtils;
 
+import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import sportsstore.dao.PhotoDAO;
 import sportsstore.dao.ProductDAO;
 import sportsstore.dto.PhotoDTO;
-import sportsstore.dto.ProductDTO;
-
-import com.sun.jersey.multipart.FormDataBodyPart;
-import com.sun.jersey.multipart.FormDataMultiPart;
 
 public class PhotoBO {
     public PhotoDTO createPhoto(FormDataMultiPart form, Integer id) throws Exception {
@@ -30,8 +28,7 @@ public class PhotoBO {
 
         try {
             productDAO = new ProductDAO();
-            ProductDTO product = productDAO.get(id);
-            if (product.getName().isEmpty() || product.getName() == null)
+            if (productDAO.get(id).getName() == "")
                 return null;
             photoDAO = new PhotoDAO();
             return photoDAO.addPhoto(uploadFile, id);

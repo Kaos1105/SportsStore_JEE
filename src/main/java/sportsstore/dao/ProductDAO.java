@@ -50,8 +50,8 @@ public class ProductDAO extends AbstractDAO {
                 productDTOList.add(productDTO);
             }
         } catch (Exception e) {
-            // System.out.println(e.toString());
-            e.printStackTrace();
+            System.out.println(e.toString());
+            // throw e;
         }
         return productDTOList;
     }
@@ -75,8 +75,8 @@ public class ProductDAO extends AbstractDAO {
                         .collect(Collectors.toList());
             productEnvelope.setProducts(productDTOList);
         } catch (Exception e) {
-            // System.out.println(e.toString());
-            e.printStackTrace();
+            System.out.println(e.toString());
+            // throw e;
         }
         return productEnvelope;
     }
@@ -90,8 +90,8 @@ public class ProductDAO extends AbstractDAO {
                 writeProductDTO(productDTO, rs);
             }
         } catch (Exception e) {
-            // System.out.println(e.toString());
-            e.printStackTrace();
+            System.out.println(e.toString());
+            // throw e;
         }
         return productDTO;
     }
@@ -99,41 +99,42 @@ public class ProductDAO extends AbstractDAO {
     public boolean create(ProductDTO input) throws Exception {
         try {
             String query = "EXEC USP_InsertProduct ? , ? , ? , ? , ? , ? , ?";
-            if (ProductDAO.super.ExecuteNonQuery(query,
+            ProductDAO.super.ExecuteNonQuery(query,
                     new Object[] { input.getName(), input.getBrand(), input.getCategory(), input.getPrice(),
-                            input.getImportPrice(), input.getStock(), input.getDateAdded() }) == 1)
-                return true;
+                            input.getImportPrice(), input.getStock(), input.getDateAdded() });
+            return true;
         } catch (Exception e) {
-            // System.out.println(e.toString());
-            e.printStackTrace();
+            System.out.println(e.toString());
+            // throw e;
+            return false;
         }
-        return false;
     }
 
     public boolean edit(ProductDTO input) throws Exception {
         try {
             String query = "EXEC USP_UpdateProduct ? , ? , ? , ? , ? , ? , ? , ?";
-            if (ProductDAO.super.ExecuteNonQuery(query,
+            ProductDAO.super.ExecuteNonQuery(query,
                     new Object[] { input.getId(), input.getName(), input.getBrand(), input.getCategory(),
-                            input.getPrice(), input.getImportPrice(), input.getStock(), input.getDateAdded() }) == 1)
-                return true;
+                            input.getPrice(), input.getImportPrice(), input.getStock(), input.getDateAdded() });
+            return true;
 
         } catch (Exception e) {
-            // System.out.println(e.toString());
-            e.printStackTrace();
+            System.out.println(e.toString());
+            // throw e;
+            return false;
         }
-        return false;
     }
 
     public boolean remove(Integer id) throws Exception {
         try {
             String query = "Delete from Product where Id=" + id;
-            if (ProductDAO.super.ExecuteNonQuery(query, null) == 1)
-                return true;
+            ProductDAO.super.ExecuteNonQuery(query, null);
+
+            return true;
         } catch (Exception e) {
-            // System.out.println(e.toString());
-            e.printStackTrace();
+            System.out.println(e.toString());
+            // throw e;
+            return false;
         }
-        return false;
     }
 }

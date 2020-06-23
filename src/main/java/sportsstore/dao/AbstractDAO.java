@@ -8,11 +8,11 @@ package sportsstore.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import sportsstore.dbconnection.DBConnectionService;
-// import java.io.*;
-// import java.net.URI;
-// import java.net.URL;
-// import java.nio.file.Path;
-// import java.nio.file.Paths;
+import java.io.*;
+import java.net.URI;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 
 /**
@@ -23,18 +23,17 @@ public abstract class AbstractDAO {
     protected Connection connection;
 
     public AbstractDAO() throws Exception {
-        // if (!CheckDatabaseExists("SportStoreDev")) {
-        // try {
-        // final URL resourceCMD = getClass().getResource("/Resources");
-        // final Path pathCMD = Paths.get(URI.create(resourceCMD.toString()));
-        // final File dir = new File(pathCMD.toString());
-        // final Process p = Runtime.getRuntime().exec("sqlcmd -S 127.0.0.1 -E -i
-        // Database.sql", null, dir);
-        // p.waitFor();
-        // } catch (final Exception err) {
-        // err.printStackTrace();
-        // }
-        // }
+        if (!CheckDatabaseExists("SportStoreDev")) {
+            try {
+                final URL resourceCMD = getClass().getResource("/Resources");
+                final Path pathCMD = Paths.get(URI.create(resourceCMD.toString()));
+                final File dir = new File(pathCMD.toString());
+                final Process p = Runtime.getRuntime().exec("sqlcmd -S 127.0.0.1 -E -i Database.sql", null, dir);
+                p.waitFor();
+            } catch (final Exception err) {
+                //err.printStackTrace();
+            }
+        }
         try {
             connection = DBConnectionService.getConnection();
         } catch (final Exception e) {

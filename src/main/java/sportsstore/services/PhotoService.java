@@ -15,15 +15,16 @@ import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import sportsstore.bo.PhotoBO;
 import sportsstore.dto.PhotoDTO;
-import com.sun.jersey.multipart.FormDataMultiPart;
 
 @Stateless
 @Path("photo")
@@ -36,11 +37,7 @@ public class PhotoService {
     @Path("{id}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response uploadImage(/*
-                                 * @FormDataParam("file") InputStream uploadedInputStream,
-                                 * 
-                                 * @FormDataParam("file") FormDataContentDisposition fileDetail,
-                                 */FormDataMultiPart form, @PathParam("id") Integer id) {
+    public Response uploadImage(FormDataMultiPart form, @PathParam("id") Integer id) {
         // File uploadFile = new
         // File("C:\\Users\\troll\\Downloads\\Pictures\\batman.png");
         PhotoBO photoBO = new PhotoBO();
@@ -77,7 +74,7 @@ public class PhotoService {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
-    @POST
+    @PUT
     @Path("{id}")
     public Response setMain(@PathParam("id") String id) {
         try {

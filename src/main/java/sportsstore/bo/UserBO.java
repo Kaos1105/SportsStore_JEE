@@ -2,8 +2,6 @@ package sportsstore.bo;
 
 import java.util.List;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 import org.mindrot.jbcrypt.BCrypt;
 
 import sportsstore.dao.UserDAO;
