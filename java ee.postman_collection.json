@@ -46,7 +46,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/SportsStore-1.0/rest/products",
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/products?category=Ghế&name=Ghế ngang",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -70,8 +70,11 @@
 						},
 						{
 							"key": "category",
-							"value": "Ghế",
-							"disabled": true
+							"value": "Ghế"
+						},
+						{
+							"key": "name",
+							"value": "Ghế ngang"
 						}
 					]
 				}
@@ -94,6 +97,27 @@
 						"SportsStore-1.0",
 						"rest",
 						"productOptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"users"
 					]
 				}
 			},
@@ -148,7 +172,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"brand\": \"test api 1\",\r\n    \"category\": \"test 1\",\r\n    \"importPrice\": \"50.0\",\r\n    \"name\": \"test 2\",\r\n    \"price\": \"100.0\",\r\n    \"stock\": \"15\",\r\n    \"dateAdded\": \"{{dateAdded}}\"\r\n}",
+					"raw": "{\r\n    \"brand\": \"test api 5\",\r\n    \"category\": \"test 5\",\r\n    \"importPrice\": \"50\",\r\n    \"name\": \"test 5\",\r\n    \"price\": \"100\",\r\n    \"stock\": \"15\",\r\n    \"dateAdded\": \"{{dateAdded}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -156,7 +180,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/SportsStore-1.0/rest/product",
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/products",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -165,7 +189,7 @@
 					"path": [
 						"SportsStore-1.0",
 						"rest",
-						"product"
+						"products"
 					]
 				}
 			},
@@ -184,7 +208,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"brand\": \"test put\",\r\n    \"category\": \"test put\",\r\n    \"importPrice\": \"50.0\",\r\n    \"name\": \"test put\",\r\n    \"price\": \"100.0\"\r\n}",
+					"raw": "{\r\n    \"brand\": \"test put\",\r\n    \"category\": \"test put\",\r\n    \"importPrice\": \"50\",\r\n    \"name\": \"test put\",\r\n    \"price\": \"100\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -192,7 +216,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/SportsStore-1.0/rest/products/8",
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/products/15",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -202,7 +226,7 @@
 						"SportsStore-1.0",
 						"rest",
 						"products",
-						"8"
+						"15"
 					]
 				}
 			},
@@ -259,11 +283,11 @@
 						{
 							"key": "File",
 							"type": "file",
-							"src": "/C:/Users/troll/Downloads/Pictures/Hulk_1.jpg"
+							"src": "/C:/Users/troll/Downloads/Pictures/cap.jpg"
 						},
 						{
-							"key": "id",
-							"value": "2",
+							"key": "",
+							"value": "",
 							"type": "text",
 							"disabled": true
 						}
@@ -273,7 +297,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/SportsStore-1.0/rest/photo/1",
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/photo/4",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -283,14 +307,7 @@
 						"SportsStore-1.0",
 						"rest",
 						"photo",
-						"1"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "1",
-							"disabled": true
-						}
+						"4"
 					]
 				}
 			},
@@ -414,7 +431,7 @@
 						}
 					]
 				},
-				"method": "POST",
+				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -431,7 +448,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/SportsStore-1.0/rest/photo/ejicbymwghmmghxfon4x",
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/photo/wbocnguj4fonrpec6haf",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -441,7 +458,300 @@
 						"SportsStore-1.0",
 						"rest",
 						"photo",
-						"ejicbymwghmmghxfon4x"
+						"wbocnguj4fonrpec6haf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "08b27319-a474-4ff9-bd37-5a0ee8dcaee6",
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/users?email=employee3@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"users"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "employee3@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "12f2ffe7-57a1-460c-bdb5-c1e6b6a43dcf",
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2c16f3ba-5c22-4851-af63-9b91124bf606",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"test@gmail.com\",\n\t\"password\":\"P@ssw0rd\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9308fec4-e622-430d-bc25-cae2dad1492e",
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"employee3@gmail.com\",\n\t\"userName\":\"employee3\",\n\t\"password\":\"P@ssw0rd\"\n} "
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Filtered Orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orders?offset=1&limit=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"orders"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orders/14",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"orders",
+						"14"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"recipientName\": \"F\",\r\n    \"recipientAddress\": \"F\",\r\n    \"recipientPhone\": \"4152151\",\r\n    \"placementDate\": \"2020-04-01\",\r\n    \"products\": [\r\n        {\r\n            \"product\": {\r\n                \"id\": 3,\r\n                \"name\": \"Tạ tay\",\r\n                \"brand\": \"Bro\",\r\n                \"category\": \"Tạ\",\r\n                \"price\": 100,\r\n                \"importPrice\": 50,\r\n                \"stock\": 100,\r\n                \"dateAdded\": \"2020-04-01\",\r\n                \"image\": null,\r\n                \"photos\": []\r\n            },\r\n            \"quantity\": 15\r\n        },\r\n        {\r\n            \"product\": {\r\n                \"id\": 4,\r\n                \"name\": \"Tạ đòn\",\r\n                \"brand\": \"Bros\",\r\n                \"category\": \"Tạ\",\r\n                \"price\": 150,\r\n                \"importPrice\": 80,\r\n                \"stock\": 8,\r\n                \"dateAdded\": \"2020-05-01\",\r\n                \"image\": null,\r\n                \"photos\": []\r\n            },\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"product\": {\r\n                \"id\": 5,\r\n                \"name\": \"Ghế ngang\",\r\n                \"brand\": \"Steel\",\r\n                \"category\": \"Ghế\",\r\n                \"price\": 200,\r\n                \"importPrice\": 150,\r\n                \"stock\": 15,\r\n                \"dateAdded\": \"2020-04-01\",\r\n                \"image\": null,\r\n                \"photos\": null\r\n            },\r\n            \"quantity\": 17\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Order",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"recipientName\": \"AA\",\r\n    \"recipientAddress\": \"AA\",\r\n    \"recipientPhone\": \"1231241241\",\r\n    \"placementDate\": \"2020-05-01\",\r\n    \"products\": [\r\n        {\r\n            \"product\": {\r\n                \"id\": 3,\r\n                \"name\": \"Tạ tay\",\r\n                \"brand\": \"Bro\",\r\n                \"category\": \"Tạ\",\r\n                \"price\": 100,\r\n                \"importPrice\": 50,\r\n                \"stock\": 100,\r\n                \"dateAdded\": \"2020-04-01\",\r\n                \"image\": null,\r\n                \"photos\": []\r\n            },\r\n            \"quantity\": 15\r\n        },\r\n        {\r\n            \"product\": {\r\n                \"id\": 4,\r\n                \"name\": \"Tạ đòn\",\r\n                \"brand\": \"Bros\",\r\n                \"category\": \"Tạ\",\r\n                \"price\": 150,\r\n                \"importPrice\": 80,\r\n                \"stock\": 8,\r\n                \"dateAdded\": \"2020-05-01\",\r\n                \"image\": null,\r\n                \"photos\": []\r\n            },\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"product\": {\r\n                \"id\": 5,\r\n                \"name\": \"Ghế ngang\",\r\n                \"brand\": \"Steel\",\r\n                \"category\": \"Ghế\",\r\n                \"price\": 200,\r\n                \"importPrice\": 150,\r\n                \"stock\": 15,\r\n                \"dateAdded\": \"2020-04-01\",\r\n                \"image\": null,\r\n                \"photos\": null\r\n            },\r\n            \"quantity\": 17\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orders/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"orders",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Order",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orders/15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"orders",
+						"15"
 					]
 				}
 			},
