@@ -82,15 +82,12 @@ public class UserDAO extends AbstractDAO {
     }
 
     public boolean deleteUser(String email) throws Exception {
-        UserDTO userDTO = getUserFromEmail(email);
-        if (userDTO.getUserName() != null || !userDTO.getUserName().isEmpty() && !userDTO.isAdmin()) {
-            try {
-                String query = "delete from Users where Email = N'" + email + "'";
-                if (UserDAO.super.ExecuteNonQuery(query, null) == 1)
-                    return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            String query = "delete from Users where Email = N'" + email + "'";
+            if (UserDAO.super.ExecuteNonQuery(query, null) == 1)
+                return true;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -110,5 +107,16 @@ public class UserDAO extends AbstractDAO {
             e.printStackTrace();
         }
         return employees;
+    }
+
+    public boolean editUser(String email, String userName, String password) throws Exception {
+        try {
+            String query = "EXEC USP_UpdateUser ? , ? , ?";
+            if (UserDAO.super.ExecuteNonQuery(query, new Object[] { userName, email, password }) == 1)
+                return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

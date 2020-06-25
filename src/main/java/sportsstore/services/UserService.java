@@ -18,6 +18,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -92,5 +93,18 @@ public class UserService {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
         }
         return Response.status(Response.Status.UNAUTHORIZED).build();
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response edit(UserDTO entity) {
+        try {
+            UserBO userBO = new UserBO();
+            if (userBO.editUser(entity.getEmail(), entity.getUserName(), entity.getPassword()))
+                return Response.ok().build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
+        }
+        return Response.status(Response.Status.BAD_REQUEST).build();
     }
 }

@@ -79,7 +79,8 @@ public class UserBO {
         try {
             userDAO = new UserDAO();
             UserDTO userDTO = userDAO.getUserFromEmail(email);
-            if (userDTO.getUserName() != null || !userDTO.getUserName().isEmpty()) {
+
+            if (userDTO.getUserName() != null || !userDTO.getUserName().isEmpty() && !userDTO.isAdmin()) {
                 return userDAO.deleteUser(email);
             }
         } catch (Exception e) {
@@ -102,5 +103,28 @@ public class UserBO {
         } finally {
             userDAO.closeConnection();
         }
+    }
+
+    public boolean editUser(String email, String userName, String password) throws Exception {
+        UserDAO userDAO = null;
+        try {
+            userDAO = new UserDAO();
+            UserDTO userDTO = userDAO.getUserFromEmail(email);
+
+            // if password is the same skip password update
+            String passwordParam = "";
+            if (!checkPass(password, userDTO.getPassword()))
+                passwordParam = hashPassword(password);
+            if (userDTO.getUserName() != null || !userDTO.getUserName().isEmpty()) {
+                if (userDAO.editUser(email, userName, passwordParam)) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            userDAO.closeConnection();
+        }
+        return false;
     }
 }
