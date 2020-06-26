@@ -1,5 +1,7 @@
 package sportsstore.services;
 
+import java.util.Date;
+
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -98,11 +100,13 @@ public class OrderService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response filterOrder(@QueryParam("offset") int offset, @QueryParam("limit") int limit) {
+    public Response filterOrder(@QueryParam("offset") int offset, @QueryParam("limit") int limit,
+            @QueryParam("name") String name, @QueryParam("address") String address, @QueryParam("phone") String phone,
+            @QueryParam("date") String placementDate) {
         OrderBO orderBO = new OrderBO();
         OrderEnvelopeDTO result = new OrderEnvelopeDTO();
         try {
-            result = orderBO.getFilteredOrders(offset, limit);
+            result = orderBO.getFilteredOrders(offset, limit, name, address, phone, placementDate);
             if (!result.getOrders().isEmpty())
                 return Response.ok().entity(result).build();
         } catch (Exception e) {

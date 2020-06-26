@@ -21,11 +21,21 @@ GO
 INSERT INTO [Order] (PlacementDate, RecipientName, RecipientAddress, RecipientPhone) VALUES ( CAST(N'2020-02-01' AS date), 'A', 'A', '123456')
 INSERT INTO [Order] (PlacementDate, RecipientName, RecipientAddress, RecipientPhone) VALUES ( CAST(N'2020-03-05' AS date), 'B', 'B', '125125')
 INSERT INTO [Order] (PlacementDate, RecipientName, RecipientAddress, RecipientPhone) VALUES ( CAST(N'2020-12-11' AS date), 'C', 'C', '6363')
+INSERT INTO [Order] (PlacementDate, RecipientName, RecipientAddress, RecipientPhone) VALUES ( CAST(N'2020-12-11' AS date), 'C', 'C', '1122')
+INSERT INTO [Order] (PlacementDate, RecipientName, RecipientAddress, RecipientPhone) VALUES ( CAST(N'2020-6-11' AS date), 'E', 'E', '2244')
+INSERT INTO [Order] (PlacementDate, RecipientName, RecipientAddress, RecipientPhone) VALUES ( CAST(N'2020-6-12' AS date), 'D', 'D', '3344')
+INSERT INTO [Order] (PlacementDate, RecipientName, RecipientAddress, RecipientPhone) VALUES ( CAST(N'2020-6-13' AS date), 'F', 'F', '5566')
+
 
 INSERT INTO [OrderedProduct] (OrderID, ProductID, Quantity) VALUES (1, 2, 5)
 INSERT INTO [OrderedProduct] (OrderID, ProductID, Quantity) VALUES (1, 5, 3)
 INSERT INTO [OrderedProduct] (OrderID, ProductID, Quantity) VALUES (2, 3, 1)
 INSERT INTO [OrderedProduct] (OrderID, ProductID, Quantity) VALUES (3, 1, 15)
+
+INSERT INTO [OrderedProduct] (OrderID, ProductID, Quantity) VALUES (2, 4, 10)
+INSERT INTO [OrderedProduct] (OrderID, ProductID, Quantity) VALUES (3, 5, 15)
+INSERT INTO [OrderedProduct] (OrderID, ProductID, Quantity) VALUES (4, 6, 20)
+INSERT INTO [OrderedProduct] (OrderID, ProductID, Quantity) VALUES (5, 7, 25)
 
 GO
 CREATE OR ALTER PROC USP_GetProductsInOrder @id int

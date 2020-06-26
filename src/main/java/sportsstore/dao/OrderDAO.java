@@ -5,6 +5,7 @@ import sportsstore.dto.OrderEnvelopeDTO;
 import sportsstore.dto.OrderedProductDTO;
 import sportsstore.dto.ProductDTO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class OrderDAO extends AbstractDAO {
     }
 
     public List<OrderedProductDTO> getProductsInOrder(Integer id) throws Exception {
-        ArrayList<OrderedProductDTO> productList = new ArrayList<>();
+        List<OrderedProductDTO> productList = new ArrayList<>();
         try {
             String productListQuery = "EXEC USP_GetProductsInOrder ?";
             ResultSet productListRs = OrderDAO.super.ExecuteQuery(productListQuery, new Object[] { id });
@@ -58,7 +59,6 @@ public class OrderDAO extends AbstractDAO {
 
     public List<OrderDTO> getAll() throws Exception {
         ArrayList<OrderDTO> orderDTOList = new ArrayList<>();
-        List<OrderedProductDTO> orderedProductDTOList = new ArrayList<>();
         try {
             String orderQuery = "SELECT * FROM [ORDER]";
             ResultSet orderRs = OrderDAO.super.ExecuteQuery(orderQuery, null);
@@ -75,13 +75,14 @@ public class OrderDAO extends AbstractDAO {
         return orderDTOList;
     }
 
-    public OrderEnvelopeDTO getFiltered(int offset, int limit) throws Exception {
+    public OrderEnvelopeDTO getFiltered(int offset, int limit, String name, String address, String phone,
+            Date placementDate) throws Exception {
         OrderEnvelopeDTO orderEnvelope = new OrderEnvelopeDTO();
         List<OrderDTO> orderDTOList = new ArrayList<>();
 
         try {
-            String query = "EXEC USP_FilterOrder";
-            ResultSet rs = OrderDAO.super.ExecuteQuery(query, new Object[] {});
+            String query = "EXEC USP_FilterOrder ? , ? , ? , ?";
+            ResultSet rs = OrderDAO.super.ExecuteQuery(query, new Object[] { name, address, phone, placementDate });
             while (rs.next()) {
                 OrderDTO orderDTO = new OrderDTO();
                 writeOrderDTO(orderDTO, rs);

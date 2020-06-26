@@ -4,6 +4,9 @@ import sportsstore.dao.OrderDAO;
 import sportsstore.dto.OrderDTO;
 import sportsstore.dto.OrderEnvelopeDTO;
 import sportsstore.dto.OrderedProductDTO;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +20,7 @@ public class OrderBO {
 
             List<OrderDTO> result = orderDAO.getAll();
             for (OrderDTO orderDTO : result) {
-                ArrayList<OrderedProductDTO> productsList = (ArrayList) orderDAO.getProductsInOrder(orderDTO.getId());
+                List<OrderedProductDTO> productsList = orderDAO.getProductsInOrder(orderDTO.getId());
                 orderDTO.setProducts(productsList);
             }
 
@@ -29,16 +32,19 @@ public class OrderBO {
         }
     }
 
-    public OrderEnvelopeDTO getFilteredOrders(int offset, int limit) throws Exception {
+    public OrderEnvelopeDTO getFilteredOrders(int offset, int limit, String name, String address, String phone,
+            String date) throws Exception {
         OrderDAO orderDAO = null;
-
+        Date placementDate = null;
+        if (date != null)
+            placementDate = Date.valueOf(date);
         try {
             orderDAO = new OrderDAO();
-            OrderEnvelopeDTO result = orderDAO.getFiltered(offset, limit);
+            OrderEnvelopeDTO result = orderDAO.getFiltered(offset, limit, name, address, phone, placementDate);
 
             // set products in orders
             for (OrderDTO orderDTO : result.getOrders()) {
-                ArrayList<OrderedProductDTO> productsList = (ArrayList) orderDAO.getProductsInOrder(orderDTO.getId());
+                List<OrderedProductDTO> productsList = orderDAO.getProductsInOrder(orderDTO.getId());
                 orderDTO.setProducts(productsList);
             }
             return result;
