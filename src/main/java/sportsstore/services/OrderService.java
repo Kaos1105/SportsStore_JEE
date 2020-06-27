@@ -1,7 +1,5 @@
 package sportsstore.services;
 
-import java.util.Date;
-
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
