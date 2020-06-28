@@ -1,5 +1,9 @@
 package sportsstore.services;
 
+import sportsstore.bo.ImportBO;
+import sportsstore.dto.ImportDTO;
+import sportsstore.dto.ImportEnvelopeDTO;
+
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -13,23 +17,19 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import sportsstore.bo.OrderBO;
-import sportsstore.dto.OrderDTO;
-import sportsstore.dto.OrderEnvelopeDTO;
-
 @Stateless
-@Path("orders")
-public class OrderService {
+@Path("imports")
+public class ImportService {
 
-    public OrderService() {
+    public ImportService() {
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(OrderDTO entity) {
+    public Response create(ImportDTO entity) {
         try {
-            OrderBO orderBO = new OrderBO();
-            if (orderBO.createOrder(entity))
+            ImportBO importBO = new ImportBO();
+            if (importBO.createImport(entity))
                 return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
@@ -40,14 +40,14 @@ public class OrderService {
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response edit(@PathParam("id") Integer id, OrderDTO entity) {
+    public Response edit(@PathParam("id") Integer id, ImportDTO entity) {
         try {
-            OrderBO orderBO = new OrderBO();
+            ImportBO importBO = new ImportBO();
             if (entity.getProducts() == null || entity.getProducts().isEmpty()) {
-                if (orderBO.editOrder(id, entity))
+                if (importBO.editImport(id, entity))
                     return Response.ok().build();
             } else {
-                if (orderBO.editOrderedProduct(id, entity))
+                if (importBO.editImportedProduct(id, entity))
                     return Response.ok().build();
             }
 
@@ -61,8 +61,8 @@ public class OrderService {
     @Path("{id}")
     public Response remove(@PathParam("id") Integer id) {
         try {
-            OrderBO orderBO = new OrderBO();
-            if (orderBO.removeOrder(id))
+            ImportBO importBO = new ImportBO();
+            if (importBO.removeImport(id))
                 return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
@@ -74,10 +74,10 @@ public class OrderService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response find(@PathParam("id") Integer id) {
-        OrderBO orderBO = new OrderBO();
-        OrderDTO result = new OrderDTO();
+        ImportBO importBO = new ImportBO();
+        ImportDTO result = new ImportDTO();
         try {
-            result = orderBO.getOrderById(id);
+            result = importBO.getImportById(id);
             if (result != null)
                 return Response.ok().entity(result).build();
         } catch (Exception e) {
@@ -86,32 +86,16 @@ public class OrderService {
         return Response.status(Response.Status.NOT_FOUND).entity(null).build();
     }
 
-    // @GET
-    // @Produces(MediaType.APPLICATION_JSON)
-    // public Response findAll() {
-    // try {
-    // ProductBO productBO = new ProductBO();
-    // ProductEnvelopeDTO result = new ProductEnvelopeDTO();
-    // result.setProducts(productBO.getAllProducts());
-    // if (!result.getProducts().isEmpty())
-    // return Response.ok().entity(result).build();
-    // } catch (Exception e) {
-    // //
-    // }
-    // return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error
-    // getting item product").build();
-    // }
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response filterOrder(@QueryParam("offset") int offset, @QueryParam("limit") int limit,
-            @QueryParam("name") String name, @QueryParam("address") String address, @QueryParam("phone") String phone,
-            @QueryParam("date") String placementDate) {
-        OrderBO orderBO = new OrderBO();
-        OrderEnvelopeDTO result = new OrderEnvelopeDTO();
+    public Response filterImports(@QueryParam("offset") int offset, @QueryParam("limit") int limit,
+                                @QueryParam("name") String name, @QueryParam("address") String address, @QueryParam("phone") String phone,
+                                @QueryParam("date") String placementDate) {
+        ImportBO importBO = new ImportBO();
+        ImportEnvelopeDTO result = new ImportEnvelopeDTO();
         try {
-            result = orderBO.getFilteredOrders(offset, limit, name, address, phone, placementDate);
-            if (!result.getOrders().isEmpty())
+            result = importBO.getFilteredImports(offset, limit, name, address, phone, placementDate);
+            if (!result.getImports().isEmpty())
                 return Response.ok().entity(result).build();
         } catch (Exception e) {
             //

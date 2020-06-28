@@ -106,4 +106,11 @@ BEGIN
 	DELETE FROM [OrderedProduct] WHERE OrderID = @ID
 	DELETE FROM [Order] WHERE ID = @ID
 END
-EXEC USP_InsertOrderedProduct 3, 14, 15
+
+GO
+CREATE OR ALTER PROC USP_DeleteOrderedProduct
+	@ID int
+AS
+BEGIN
+	DELETE FROM [OrderedProduct] WHERE OrderID = @ID
+END
