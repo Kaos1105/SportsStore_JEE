@@ -23,26 +23,30 @@ exec USP_ProductStatistics
 CREATE PROCEDURE USP_MonthlyIncomeStatistic(@begin Date,@end Date)
 AS
 BEGIN
-select sum(price*quantity) - sum(ImportPrice*Quantity) from [Order] o
+select YEAR(PlacementDate) as YEAR, MONTH(PlacementDate) as MONTH, sum(price*quantity) - sum(ImportPrice*Quantity) AS INCOME from [Order] o
 inner join [OrderedProduct] op
 on o.ID = op.OrderID
 inner join [Product] p
 on op.ProductID = p.ID
 WHERE (PlacementDate >= @begin AND PlacementDate <= @end)
+group by YEAR(PlacementDate),MONTH(PlacementDate)
 END;
 
 exec USP_MonthlyIncomeStatistic '20200101','20201222'
 
 
-CREATE PROCEDURE USP_YearlyIncomeStatistic(@begin int,@end int)
+CREATE PROCEDURE USP_YearlyIncomeStatistic(@begin Date,@end Date)
 AS
 BEGIN
-select sum(price*quantity) - sum(ImportPrice*Quantity) from [Order] o
+select YEAR(PlacementDate) as YEAR,  sum(price*quantity) - sum(ImportPrice*Quantity) AS INCOME from [Order] o
 inner join [OrderedProduct] op
 on o.ID = op.OrderID
 inner join [Product] p
 on op.ProductID = p.ID
-WHERE (YEAR(PlacementDate) >= @begin AND YEAR(PlacementDate) <= @end)
+WHERE (PlacementDate >= @begin AND PlacementDate <= @end)
+group by YEAR(PlacementDate) 
+
 END;
 
-exec USP_YearlyIncomeStatistic '2020','2020'
+exec USP_YearlyIncomeStatistic '20200101','20201222'
+  
