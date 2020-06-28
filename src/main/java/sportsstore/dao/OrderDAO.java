@@ -103,7 +103,6 @@ public class OrderDAO extends AbstractDAO {
 
     public OrderDTO get(Integer id) throws Exception {
         OrderDTO orderDTO = new OrderDTO();
-        List<OrderedProductDTO> orderedProductDTOList = new ArrayList<>();
         try {
             String orderQuery = "SELECT * FROM [ORDER] WHERE ID = " + id;
             ResultSet orderRs = OrderDAO.super.ExecuteQuery(orderQuery, null);
@@ -121,21 +120,26 @@ public class OrderDAO extends AbstractDAO {
     public boolean create(OrderDTO input) throws Exception {
         try {
             String query = "EXEC USP_InsertOrder ? , ? , ? , ?";
-            ResultSet rs = OrderDAO.super.ExecuteQuery(query, new Object[] { input.getPlacementDate(),
-                    input.getRecipientName(), input.getRecipientAddress(), input.getRecipientPhone(), });
-            int createdId = -1;
-            if (rs.next()) {
-                createdId = rs.getInt("id");
-            }
-            if (createdId == -1)
-                throw new Exception();
+            if (OrderDAO.super.ExecuteNonQuery(query, new Object[] { input.getPlacementDate(), input.getRecipientName(),
+                    input.getRecipientAddress(), input.getRecipientPhone(), }) == 1)
+                return true;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            // throw e;
+        }
+        return false;
+    }
 
+    public boolean createOrderedProduct(OrderDTO input) throws Exception {
+        try {
+            boolean result = true;
             for (OrderedProductDTO product : input.getProducts()) {
                 String productQuery = "EXEC USP_InsertOrderedProduct ? , ? , ?";
-                OrderDAO.super.ExecuteNonQuery(productQuery,
-                        new Object[] { product.getProduct().getId(), createdId, product.getQuantity() });
+                if (OrderDAO.super.ExecuteNonQuery(productQuery,
+                        new Object[] { product.getProduct().getId(), input.getId(), product.getQuantity() }) != 1)
+                    result = false;
             }
-            return true;
+            return result;
         } catch (Exception e) {
             System.out.println(e.toString());
             // throw e;
@@ -146,14 +150,21 @@ public class OrderDAO extends AbstractDAO {
     public boolean edit(OrderDTO input) throws Exception {
         try {
             String query = "EXEC USP_UpdateOrder ? , ? , ? , ? , ?";
-            OrderDAO.super.ExecuteNonQuery(query, new Object[] { input.getId(), input.getPlacementDate(),
-                    input.getRecipientName(), input.getRecipientAddress(), input.getRecipientPhone() });
+            if (OrderDAO.super.ExecuteNonQuery(query, new Object[] { input.getId(), input.getPlacementDate(),
+                    input.getRecipientName(), input.getRecipientAddress(), input.getRecipientPhone() }) == 1)
+                return true;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            // throw e;
+        }
+        return false;
+    }
 
-            for (OrderedProductDTO product : input.getProducts()) {
-                String productQuery = "EXEC USP_UpdateOrderedProduct ? , ? , ?";
-                OrderDAO.super.ExecuteNonQuery(query,
-                        new Object[] { product.getProduct().getId(), input.getId(), product.getQuantity() });
-            }
+    public boolean remove(Integer id) throws Exception {
+        try {
+            String query = "EXEC USP_DeleteOrder ?";
+            OrderDAO.super.ExecuteNonQuery(query, new Object[] { id });
+
             return true;
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -162,9 +173,9 @@ public class OrderDAO extends AbstractDAO {
         }
     }
 
-    public boolean remove(Integer id) throws Exception {
+    public boolean removeOrderedProduct(Integer id) throws Exception {
         try {
-            String query = "EXEC USP_DeleteOrder ?";
+            String query = "EXEC USP_DeleteOrderedProduct ?";
             OrderDAO.super.ExecuteNonQuery(query, new Object[] { id });
 
             return true;

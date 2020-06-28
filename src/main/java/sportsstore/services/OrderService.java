@@ -51,6 +51,20 @@ public class OrderService {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
+    @PUT
+    @Path("{id}/manage")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response editOrderedProduct(@PathParam("id") Integer id, OrderDTO entity) {
+        try {
+            OrderBO orderBO = new OrderBO();
+            if (orderBO.editOrderedProduct(id, entity))
+                return Response.ok().build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
+        }
+        return Response.status(Response.Status.BAD_REQUEST).build();
+    }
+
     @DELETE
     @Path("{id}")
     public Response remove(@PathParam("id") Integer id) {

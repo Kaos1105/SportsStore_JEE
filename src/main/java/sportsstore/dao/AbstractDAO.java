@@ -31,7 +31,7 @@ public abstract class AbstractDAO {
                 final Process p = Runtime.getRuntime().exec("sqlcmd -S 127.0.0.1 -E -i Database.sql", null, dir);
                 p.waitFor();
             } catch (final Exception err) {
-                //err.printStackTrace();
+                // err.printStackTrace();
             }
         }
         try {
@@ -109,6 +109,7 @@ public abstract class AbstractDAO {
         return rs;
     }
 
+    // return number of affected row
     public int ExecuteNonQuery(final String query, final Object[] params) {
         int rowAffected = 0;
         try {

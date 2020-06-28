@@ -78,4 +78,21 @@ public class PhotoBO {
         }
         return false;
     }
+
+    public String getMainPhotoURL(String id) throws Exception {
+        PhotoDAO photoDAO = null;
+        try {
+            photoDAO = new PhotoDAO();
+            PhotoDTO currentMain = photoDAO.findMainFromProductId(id);
+            if (currentMain == null) {
+                return null;
+            }
+            return currentMain.getUrl();
+        } catch (Exception e) {
+            // throw e;
+        } finally {
+            photoDAO.closeConnection();
+        }
+        return null;
+    }
 }

@@ -99,42 +99,40 @@ public class ProductDAO extends AbstractDAO {
     public boolean create(ProductDTO input) throws Exception {
         try {
             String query = "EXEC USP_InsertProduct ? , ? , ? , ? , ? , ? , ?";
-            ProductDAO.super.ExecuteNonQuery(query,
+            if (ProductDAO.super.ExecuteNonQuery(query,
                     new Object[] { input.getName(), input.getBrand(), input.getCategory(), input.getPrice(),
-                            input.getImportPrice(), input.getStock(), input.getDateAdded() });
-            return true;
+                            input.getImportPrice(), input.getStock(), input.getDateAdded() }) == 1)
+                return true;
         } catch (Exception e) {
             System.out.println(e.toString());
             // throw e;
-            return false;
         }
+        return false;
     }
 
     public boolean edit(ProductDTO input) throws Exception {
         try {
             String query = "EXEC USP_UpdateProduct ? , ? , ? , ? , ? , ? , ? , ?";
-            ProductDAO.super.ExecuteNonQuery(query,
+            if (ProductDAO.super.ExecuteNonQuery(query,
                     new Object[] { input.getId(), input.getName(), input.getBrand(), input.getCategory(),
-                            input.getPrice(), input.getImportPrice(), input.getStock(), input.getDateAdded() });
-            return true;
-
+                            input.getPrice(), input.getImportPrice(), input.getStock(), input.getDateAdded() }) == 1)
+                return true;
         } catch (Exception e) {
             System.out.println(e.toString());
             // throw e;
-            return false;
         }
+        return false;
     }
 
     public boolean remove(Integer id) throws Exception {
         try {
             String query = "Delete from Product where Id=" + id;
-            ProductDAO.super.ExecuteNonQuery(query, null);
-
-            return true;
+            if (ProductDAO.super.ExecuteNonQuery(query, null) == 1)
+                return true;
         } catch (Exception e) {
             System.out.println(e.toString());
             // throw e;
-            return false;
         }
+        return false;
     }
 }
