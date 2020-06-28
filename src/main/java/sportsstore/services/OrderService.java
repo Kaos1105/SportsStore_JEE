@@ -43,27 +43,35 @@ public class OrderService {
     public Response edit(@PathParam("id") Integer id, OrderDTO entity) {
         try {
             OrderBO orderBO = new OrderBO();
-            if (orderBO.editOrder(id, entity))
-                return Response.ok().build();
+            if (entity.getProducts() == null || entity.getProducts().isEmpty()) {
+                if (orderBO.editOrder(id, entity))
+                    return Response.ok().build();
+            } else {
+                if (orderBO.editOrderedProduct(id, entity))
+                    return Response.ok().build();
+            }
+
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
-    @PUT
-    @Path("{id}/manage")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response editOrderedProduct(@PathParam("id") Integer id, OrderDTO entity) {
-        try {
-            OrderBO orderBO = new OrderBO();
-            if (orderBO.editOrderedProduct(id, entity))
-                return Response.ok().build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
-        }
-        return Response.status(Response.Status.BAD_REQUEST).build();
-    }
+    // @PUT
+    // @Path("{id}/manage")
+    // @Consumes(MediaType.APPLICATION_JSON)
+    // public Response editOrderedProduct(@PathParam("id") Integer id, OrderDTO
+    // entity) {
+    // try {
+    // OrderBO orderBO = new OrderBO();
+    // if (orderBO.editOrderedProduct(id, entity))
+    // return Response.ok().build();
+    // } catch (Exception e) {
+    // return
+    // Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
+    // }
+    // return Response.status(Response.Status.BAD_REQUEST).build();
+    // }
 
     @DELETE
     @Path("{id}")
