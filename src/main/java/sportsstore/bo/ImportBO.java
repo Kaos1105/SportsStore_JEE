@@ -49,7 +49,7 @@ public class ImportBO {
         try {
             importDAO = new ImportDAO();
             photoBO = new PhotoBO();
-            ImportEnvelopeDTO result = importDAO.getFiltered(offset, limit, name, address, phone, placementDate);
+            ImportEnvelopeDTO result = importDAO.getFiltered(offset, limit, placementDate, name, address, phone);
 
             // set products in orders
             for (ImportDTO importDTO : result.getImports()) {

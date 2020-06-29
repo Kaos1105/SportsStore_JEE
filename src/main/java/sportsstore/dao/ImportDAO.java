@@ -80,14 +80,14 @@ public class ImportDAO extends AbstractDAO {
         return importDTOArrayList;
     }
 
-    public ImportEnvelopeDTO getFiltered(int offset, int limit, String name, String address, String phone,
-                                         Date placementDate) throws Exception {
+    public ImportEnvelopeDTO getFiltered(int offset, int limit, Date placementDate,
+                                         String name, String address, String phone) throws Exception {
         ImportEnvelopeDTO importEnvelopeDTO = new ImportEnvelopeDTO();
         List<ImportDTO> importDTOArrayList = new ArrayList<>();
 
         try {
             String query = "EXEC USP_FilterImport ? , ? , ? , ?";
-            ResultSet rs = ImportDAO.super.ExecuteQuery(query, new Object[] { name, address, phone, placementDate });
+            ResultSet rs = ImportDAO.super.ExecuteQuery(query, new Object[] { placementDate, name, address, phone, });
             while (rs.next()) {
                 ImportDTO importDTO = new ImportDTO();
                 writeImportDTO(importDTO, rs);
