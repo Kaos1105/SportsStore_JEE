@@ -46,6 +46,7 @@ public class ProductBO {
             throw e;
         } finally {
             productDAO.closeConnection();
+            photoDAO.closeConnection();
         }
     }
 
@@ -75,6 +76,7 @@ public class ProductBO {
             throw e;
         } finally {
             productDAO.closeConnection();
+            photoDAO.closeConnection();
         }
     }
 
@@ -114,6 +116,7 @@ public class ProductBO {
             throw e;
         } finally {
             productDAO.closeConnection();
+            photoDAO.closeConnection();
         }
     }
 

@@ -164,6 +164,7 @@ public class OrderBO {
             throw e;
         } finally {
             orderDAO.closeConnection();
+            productDAO.closeConnection();
         }
         return false;
     }
