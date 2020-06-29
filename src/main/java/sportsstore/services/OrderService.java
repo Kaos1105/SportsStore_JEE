@@ -43,12 +43,13 @@ public class OrderService {
     public Response edit(@PathParam("id") Integer id, OrderDTO entity) {
         try {
             OrderBO orderBO = new OrderBO();
-            if (entity.getProducts() == null || entity.getProducts().isEmpty()) {
-                if (orderBO.editOrder(id, entity))
-                    return Response.ok().build();
-            } else {
-                if (orderBO.editOrderedProduct(id, entity))
-                    return Response.ok().build();
+
+            if (orderBO.editOrder(id, entity)) {
+                if (entity.getProducts() != null || !entity.getProducts().isEmpty()) {
+                    if (orderBO.editOrderedProduct(id, entity))
+                        return Response.ok().build();
+                }
+                return Response.ok().build();
             }
 
         } catch (Exception e) {

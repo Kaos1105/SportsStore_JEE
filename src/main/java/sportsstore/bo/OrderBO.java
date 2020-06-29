@@ -1,9 +1,11 @@
 package sportsstore.bo;
 
 import sportsstore.dao.OrderDAO;
+import sportsstore.dao.ProductDAO;
 import sportsstore.dto.OrderDTO;
 import sportsstore.dto.OrderEnvelopeDTO;
 import sportsstore.dto.OrderedProductDTO;
+import sportsstore.dto.ProductDTO;
 
 import java.sql.Date;
 import java.util.List;
@@ -129,17 +131,34 @@ public class OrderBO {
         }
     }
 
-    public boolean editOrderedProduct(Integer id, OrderDTO order) throws Exception {
+    public boolean editOrderedProduct(Integer id, OrderDTO orderDTO) throws Exception {
         OrderDAO orderDAO = null;
+        ProductDAO productDAO = null;
+
         try {
-            order.setId(id);
+            orderDTO.setId(id);
             orderDAO = new OrderDAO();
+            productDAO = new ProductDAO();
             OrderDTO result = orderDAO.get(id);
             if (result == null)
                 return false;
-            if (orderDAO.removeOrderedProduct(id)) {
-                if (orderDAO.createOrderedProduct(order))
+            if (orderDAO.getProductsInOrder(id).isEmpty()) {
+                if (orderDAO.removeOrderedProduct(id)) {
+                    if (orderDAO.createOrderedProduct(orderDTO)) {
+                        for (OrderedProductDTO product : orderDTO.getProducts()) {
+                            ProductDTO updateProduct = productDAO.get(product.getProduct().getId());
+                            if (updateProduct == null)
+                                return false;
+
+                            updateProduct.setStock(updateProduct.getStock() - product.getQuantity());
+                            if (!productDAO.edit(updateProduct))
+                                return false;
+                        }
+                    }
                     return true;
+                }
+            } else {
+                return true;
             }
         } catch (Exception e) {
             throw e;
