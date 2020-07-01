@@ -6,7 +6,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import sportsstore.dao.UserDAO;
 import sportsstore.dto.UserDTO;
-import sportsstore.helper.JwtGenerator;
+import sportsstore.helper.Authentication.*;
 
 public class UserBO {
 
@@ -95,7 +95,7 @@ public class UserBO {
             userDAO = new UserDAO();
             UserDTO userDTO = userDAO.getUserFromEmail(email);
 
-            if (userDTO.getUserName() != null || !userDTO.getUserName().isEmpty() && !userDTO.isAdmin()) {
+            if (userDTO.getUserName() != null || !userDTO.getUserName().isEmpty() && userDTO.getRole() != "Admin") {
                 return userDAO.deleteUser(email);
             }
         } catch (Exception e) {

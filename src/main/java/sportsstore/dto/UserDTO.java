@@ -8,11 +8,19 @@ public class UserDTO {
     private String userName;
     private String email;
     private String password;
-    private boolean isAdmin;
+    private String role;
     private String token;
 
     public String getId() {
         return id;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getToken() {
@@ -21,14 +29,6 @@ public class UserDTO {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
     }
 
     public String getPassword() {

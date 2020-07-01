@@ -1,4 +1,4 @@
-package sportsstore.helper;
+package sportsstore.helper.Authentication;
 
 import sportsstore.dto.UserDTO;
 

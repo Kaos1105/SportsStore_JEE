@@ -22,7 +22,7 @@ public class UserDAO extends AbstractDAO {
         userDTO.setUserName(rs.getString("UserName"));
         userDTO.setEmail(rs.getString("Email"));
         userDTO.setPassword(rs.getString("Password"));
-        userDTO.setAdmin(rs.getBoolean("IsAdmin"));
+        userDTO.setRole(rs.getString("Role"));
     }
 
     public UserDTO getUserFromName(String userName) throws Exception {

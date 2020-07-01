@@ -1,10 +1,11 @@
-package sportsstore.helper;
+package sportsstore.helper.Authentication;
 
 import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.function.Function;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -15,12 +16,13 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import sportsstore.dao.UserDAO;
 import sportsstore.dto.UserDTO;
 
 public class JwtGenerator implements IJwtGenerator {
     Date currentDate;
     LocalDateTime localDateTime;
-    String secretString = "prefix_to_make_the_key_longer_super_ultra_mega_long_ass_secret_key";
+    static String secretString = "prefix_to_make_the_key_longer_super_ultra_mega_long_ass_secret_key";
 
     public JwtGenerator() {
         currentDate = new Date();
@@ -52,5 +54,45 @@ public class JwtGenerator implements IJwtGenerator {
                 .parseClaimsJws(jwt).getBody().getSubject().equals(email))
             return true;
         return false;
+    }
+
+    // Authenticate part
+
+    public static UserDTO getUserFromToken(String token) {
+        UserDAO userDAO = null;
+        Claims claims = decodeJWT(token);
+        try {
+            userDAO = new UserDAO();
+            UserDTO user = userDAO.getUserFromEmail(claims.getSubject());
+            return user;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static boolean isTokenExpired(String token) {
+        final Date expiration = getExpirationDateFromToken(token);
+        return expiration.before(new Date());
+    }
+
+    private static Date getExpirationDateFromToken(String token) {
+        return getClaimFromToken(token, Claims::getExpiration);
+    }
+
+    private static <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = decodeJWT(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private static Claims decodeJWT(String jwt) {
+        // This line will throw an exception if it is not a signed JWS (as expected)
+        return Jwts.parserBuilder() // Configured and then used to parse JWT strings
+                .setSigningKey(DatatypeConverter.parseBase64Binary(secretString)).build() // Sets the signing key used
+                                                                                          // to verify
+                // any discovered JWS digital
+                // signature
+                .parseClaimsJws(jwt) // Parses the specified compact serialized JWS string based
+                .getBody();
     }
 }

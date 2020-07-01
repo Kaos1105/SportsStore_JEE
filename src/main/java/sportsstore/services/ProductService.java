@@ -5,6 +5,9 @@
  */
 package sportsstore.services;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
+
 /**
  * REST Web Service
  *
@@ -27,9 +30,11 @@ import javax.ws.rs.core.Response;
 import sportsstore.bo.ProductBO;
 import sportsstore.dto.ProductDTO;
 import sportsstore.dto.ProductEnvelopeDTO;
+import sportsstore.helper.Authentication.Role;
 
 @Stateless
 @Path("products")
+@PermitAll
 public class ProductService {
 
     public ProductService() {
@@ -48,6 +53,7 @@ public class ProductService {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
+    @RolesAllowed(Role.ROLE_ADMIN)
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -75,6 +81,7 @@ public class ProductService {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
+    @RolesAllowed(Role.ROLE_ADMIN)
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
