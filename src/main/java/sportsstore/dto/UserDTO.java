@@ -9,9 +9,18 @@ public class UserDTO {
     private String email;
     private String password;
     private boolean isAdmin;
+    private String token;
 
     public String getId() {
         return id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public boolean isAdmin() {

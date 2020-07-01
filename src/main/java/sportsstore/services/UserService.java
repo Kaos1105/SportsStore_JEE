@@ -72,7 +72,7 @@ public class UserService {
     public Response login(UserDTO entity) {
         try {
             UserBO userBO = new UserBO();
-            UserDTO result = userBO.checkPassAndEmail(entity.getEmail(), entity.getPassword());
+            UserDTO result = userBO.checkPassAndEmail(entity.getEmail(), entity.getPassword(), entity.getToken());
             if (result != null)
                 return Response.ok().entity(result).build();
         } catch (Exception e) {

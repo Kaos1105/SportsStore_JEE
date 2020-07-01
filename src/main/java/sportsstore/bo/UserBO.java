@@ -6,6 +6,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import sportsstore.dao.UserDAO;
 import sportsstore.dto.UserDTO;
+import sportsstore.helper.JwtGenerator;
 
 public class UserBO {
 
@@ -19,15 +20,25 @@ public class UserBO {
         return false;
     }
 
-    public UserDTO checkPassAndEmail(String email, String plainPassword) throws Exception {
+    public UserDTO checkPassAndEmail(String email, String plainPassword, String token) throws Exception {
         UserDAO userDAO = null;
+        JwtGenerator generator = null;
 
         try {
             userDAO = new UserDAO();
+            generator = new JwtGenerator();
+
             UserDTO userDTO = userDAO.getUserFromEmail(email);
             if (userDTO != null) {
-                if (checkPass(plainPassword, userDTO.getPassword()))
+                if (token != null) {
+                    if (generator.decodeJWT(token, email)) {
+                        userDTO.setToken(token);
+                        return userDTO;
+                    }
+                } else if (checkPass(plainPassword, userDTO.getPassword())) {
+                    userDTO.setToken(generator.createJWT(userDTO));
                     return userDTO;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,15 +50,19 @@ public class UserBO {
 
     public UserDTO createUser(String userName, String email, String plainPassword) throws Exception {
         UserDAO userDAO = null;
+        JwtGenerator generator = null;
 
         try {
             userDAO = new UserDAO();
+            generator = new JwtGenerator();
             UserDTO userDTO = userDAO.getUserFromEmail(email);
             if (userDTO.getUserName() == null || userDTO.getUserName().isEmpty()) {
                 if (userDAO.createUser(userName, email, hashPassword(plainPassword))) {
                     UserDTO result = userDAO.getUserFromEmail(email);
-                    if (result != null)
+                    if (result != null) {
+                        result.setToken(generator.createJWT(result));
                         return result;
+                    }
                 }
             }
         } catch (Exception e) {
