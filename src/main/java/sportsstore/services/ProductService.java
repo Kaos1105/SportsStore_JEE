@@ -40,6 +40,7 @@ public class ProductService {
     public ProductService() {
     }
 
+    @RolesAllowed(Role.ROLE_ADMIN)
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(ProductDTO entity) {
@@ -68,6 +69,7 @@ public class ProductService {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
+    @RolesAllowed(Role.ROLE_ADMIN)
     @DELETE
     @Path("{id}")
     public Response remove(@PathParam("id") Integer id) {
@@ -81,7 +83,7 @@ public class ProductService {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
-    @RolesAllowed(Role.ROLE_ADMIN)
+    // @RolesAllowed({ Role.ROLE_ADMIN, Role.ROLE_EMPLOYEE })
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)

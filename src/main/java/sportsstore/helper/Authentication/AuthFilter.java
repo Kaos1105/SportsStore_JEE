@@ -18,6 +18,7 @@ import sportsstore.dto.UserDTO;
 public class AuthFilter implements ContainerRequestFilter {
     // private static final String REALM = "gpcoder";
     private static final String AUTHENTICATION_SCHEME = "Bearer";
+    public static UserDTO currentUser = null;
 
     /**
      * Extracting the token from the request and validating it
@@ -51,6 +52,10 @@ public class AuthFilter implements ContainerRequestFilter {
 
             // (5) Getting the User information from token
             UserDTO user = JwtGenerator.getUserFromToken(token);
+            if (user != null) {
+                currentUser = user;
+                currentUser.setToken(token);
+            }
 
             // (6) Overriding the security context of the current request
             SecurityContext oldContext = requestContext.getSecurityContext();

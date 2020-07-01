@@ -16,6 +16,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import sportsstore.bo.UserBO;
 import sportsstore.dao.UserDAO;
 import sportsstore.dto.UserDTO;
 
@@ -59,11 +60,11 @@ public class JwtGenerator implements IJwtGenerator {
     // Authenticate part
 
     public static UserDTO getUserFromToken(String token) {
-        UserDAO userDAO = null;
+        UserBO userBO = null;
         Claims claims = decodeJWT(token);
         try {
-            userDAO = new UserDAO();
-            UserDTO user = userDAO.getUserFromEmail(claims.getSubject());
+            userBO = new UserBO();
+            UserDTO user = userBO.getUserFromEmail(claims.getSubject());
             return user;
         } catch (Exception e) {
             e.printStackTrace();

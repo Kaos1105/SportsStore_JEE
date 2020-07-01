@@ -48,7 +48,7 @@ public class UserBO {
         return null;
     }
 
-    public UserDTO createUser(String userName, String email, String plainPassword) throws Exception {
+    public UserDTO createUser(String userName, String email, String plainPassword, String role) throws Exception {
         UserDAO userDAO = null;
         JwtGenerator generator = null;
 
@@ -57,10 +57,10 @@ public class UserBO {
             generator = new JwtGenerator();
             UserDTO userDTO = userDAO.getUserFromEmail(email);
             if (userDTO.getUserName() == null || userDTO.getUserName().isEmpty()) {
-                if (userDAO.createUser(userName, email, hashPassword(plainPassword))) {
+                if (userDAO.createUser(userName, email, hashPassword(plainPassword), role)) {
                     UserDTO result = userDAO.getUserFromEmail(email);
                     if (result != null) {
-                        result.setToken(generator.createJWT(result));
+                        // result.setToken(generator.createJWT(result));
                         return result;
                     }
                 }
@@ -73,13 +73,13 @@ public class UserBO {
         return null;
     }
 
-    public boolean setUserMain(String email) throws Exception {
+    public boolean setUserMain(String email, String role) throws Exception {
         UserDAO userDAO = null;
         try {
             userDAO = new UserDAO();
             UserDTO userDTO = userDAO.getUserFromEmail(email);
             if (userDTO.getUserName() != null || !userDTO.getUserName().isEmpty()) {
-                return userDAO.setAdmin(email);
+                return userDAO.setRole(email, role);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,6 +120,20 @@ public class UserBO {
         }
     }
 
+    public UserDTO getUserFromEmail(String email) throws Exception {
+        UserDAO userDAO = null;
+        try {
+            userDAO = new UserDAO();
+
+            UserDTO result = userDAO.getUserFromEmail(email);
+            return result;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            userDAO.closeConnection();
+        }
+    }
+
     public boolean editUser(String email, String userName, String password) throws Exception {
         UserDAO userDAO = null;
         try {
@@ -132,6 +146,25 @@ public class UserBO {
                 passwordParam = hashPassword(password);
             if (userDTO.getUserName() != null || !userDTO.getUserName().isEmpty()) {
                 if (userDAO.editUser(email, userName, passwordParam)) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            userDAO.closeConnection();
+        }
+        return false;
+    }
+
+    public boolean editRole(String email, String role) throws Exception {
+        UserDAO userDAO = null;
+        try {
+            userDAO = new UserDAO();
+            UserDTO userDTO = userDAO.getUserFromEmail(email);
+
+            if (userDTO.getUserName() != null || !userDTO.getUserName().isEmpty()) {
+                if (userDAO.setRole(email, role)) {
                     return true;
                 }
             }
