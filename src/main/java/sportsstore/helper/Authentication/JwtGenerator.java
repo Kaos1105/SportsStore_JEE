@@ -3,11 +3,9 @@ package sportsstore.helper.Authentication;
 import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.function.Function;
 
-import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
@@ -15,9 +13,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import sportsstore.bo.UserBO;
-import sportsstore.dao.UserDAO;
 import sportsstore.dto.UserDTO;
 
 public class JwtGenerator implements IJwtGenerator {

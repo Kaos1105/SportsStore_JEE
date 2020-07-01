@@ -29,7 +29,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import sportsstore.bo.UserBO;
-import sportsstore.dao.UserDAO;
 import sportsstore.dto.UserDTO;
 import sportsstore.helper.Authentication.AuthFilter;
 import sportsstore.helper.Authentication.Role;
@@ -54,6 +53,7 @@ public class UserService {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
+    @RolesAllowed(Role.ROLE_ADMIN)
     @GET
     @Path("/getEmployees")
     @Produces(MediaType.APPLICATION_JSON)
@@ -102,6 +102,7 @@ public class UserService {
         return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 
+    @RolesAllowed(Role.ROLE_ADMIN)
     @DELETE
     @Path("{email}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -129,6 +130,7 @@ public class UserService {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
+    @RolesAllowed(Role.ROLE_ADMIN)
     @PUT
     @Path("{email}")
     @Consumes(MediaType.APPLICATION_JSON)

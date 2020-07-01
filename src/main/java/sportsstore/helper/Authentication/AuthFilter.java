@@ -16,7 +16,7 @@ import sportsstore.dto.UserDTO;
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class AuthFilter implements ContainerRequestFilter {
-    // private static final String REALM = "gpcoder";
+    // private static final String REALM = "sportsStores";
     private static final String AUTHENTICATION_SCHEME = "Bearer";
     public static UserDTO currentUser = null;
 
@@ -80,7 +80,7 @@ public class AuthFilter implements ContainerRequestFilter {
         // The WWW-Authenticate header is sent along with the response
         Response response = Response.status(Response.Status.UNAUTHORIZED) // 401 Unauthorized
                 /*
-                 * .header(HttpHeaders.WWW_AUTHENTICATE, AUTHENTICATION_SCHEME + " realm=\"" +
+                 * .header(HttpHeaders.WWW_AUTHENTICATE, AUTHENTICATION_SCHEME + " rest=\"" +
                  * REALM + "\"")
                  */
                 .entity("You cannot access this resource") // the response entity
