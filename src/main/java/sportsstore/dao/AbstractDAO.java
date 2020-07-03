@@ -23,15 +23,15 @@ public abstract class AbstractDAO {
     protected Connection connection;
 
     public AbstractDAO() throws Exception {
-        if (!CheckDatabaseExists("SportsStoreJEE")) {
+        if (!CheckDatabaseExists("SportStoreDev")) {
             try {
-                URL resourceCMD = getClass().getClassLoader().getResource("");
-                Path pathCMD = Paths.get(URI.create(resourceCMD.toString()));
-                File dir = new File(pathCMD.toString());
-                Process p = Runtime.getRuntime().exec("sqlcmd -S 127.0.0.1 -E -i Database.sql", null, dir);
+                final URL resourceCMD = getClass().getResource("/Resources");
+                final Path pathCMD = Paths.get(URI.create(resourceCMD.toString()));
+                final File dir = new File(pathCMD.toString());
+                final Process p = Runtime.getRuntime().exec("sqlcmd -S 127.0.0.1 -E -i Database.sql", null, dir);
                 p.waitFor();
             } catch (final Exception err) {
-                err.printStackTrace();
+                // err.printStackTrace();
             }
         }
         try {

@@ -1,6 +1,5 @@
 package sportsstore.services;
 
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -17,7 +16,6 @@ import javax.ws.rs.core.Response;
 import sportsstore.bo.OrderBO;
 import sportsstore.dto.OrderDTO;
 import sportsstore.dto.OrderEnvelopeDTO;
-import sportsstore.helper.Authentication.Role;
 
 @Stateless
 @Path("orders")
@@ -76,7 +74,6 @@ public class OrderService {
     // return Response.status(Response.Status.BAD_REQUEST).build();
     // }
 
-    @RolesAllowed(Role.ROLE_ADMIN)
     @DELETE
     @Path("{id}")
     public Response remove(@PathParam("id") Integer id) {

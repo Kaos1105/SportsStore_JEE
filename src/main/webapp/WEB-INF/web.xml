@@ -15,18 +15,11 @@
         <!-- Define the package to search for classes -->
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>sportsstore.services, sportsstore.helper</param-value>
+            <param-value>sportsstore.services</param-value>
         </init-param>
-          <!-- Register Multipart, Jackson Feature, Roles -->
         <init-param>
             <param-name>jersey.config.server.provider.classnames</param-name>
-            <param-value>org.glassfish.jersey.jackson.JacksonFeature; org.glassfish.jersey.media.multipart.MultiPartFeature; org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature</param-value>
-        </init-param>
-
-          <!-- Register Custom Jersey Filter -->
-        <init-param>
-            <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
-            <param-value>sportsstore.helper.Authentication.AuthFilter</param-value>
+            <param-value>org.glassfish.jersey.jackson.JacksonFeature; org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>

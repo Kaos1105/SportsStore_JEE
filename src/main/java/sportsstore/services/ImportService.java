@@ -3,9 +3,7 @@ package sportsstore.services;
 import sportsstore.bo.ImportBO;
 import sportsstore.dto.ImportDTO;
 import sportsstore.dto.ImportEnvelopeDTO;
-import sportsstore.helper.Authentication.Role;
 
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -60,7 +58,6 @@ public class ImportService {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
-    @RolesAllowed(Role.ROLE_ADMIN)
     @DELETE
     @Path("{id}")
     public Response remove(@PathParam("id") Integer id) {

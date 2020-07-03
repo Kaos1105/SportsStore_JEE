@@ -5,11 +5,9 @@
  */
 package sportsstore.services;
 
-/**
- * REST Web Service
- *
- * @author Max
- */
+
+
+import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -24,24 +22,26 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import sportsstore.bo.ProductBO;
-import sportsstore.dto.ProductDTO;
-import sportsstore.dto.ProductEnvelopeDTO;
+import sportsstore.bo.ShipmentBO;
+import sportsstore.dto.ShipmentDTO;
+import sportsstore.dto.ShipmentEnvelopeDTO;
 
 @Stateless
-@Path("products")
-public class ProductService {
+@Path("shipment")
+public class ShipmentService {
 
-    public ProductService() {
+    public ShipmentService() {
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(ProductDTO entity) {
+    public Response create(ShipmentDTO entity) {
         try {
-            ProductBO productBO = new ProductBO();
-            if (productBO.createProduct(entity))
+            ShipmentBO ShipmentBO = new ShipmentBO();
+            if (ShipmentBO.createShipment(entity)) {
+            	System.out.println("got it");
                 return Response.ok().build();
+            }
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
         }
@@ -51,10 +51,10 @@ public class ProductService {
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response edit(@PathParam("id") Integer id, ProductDTO entity) {
+    public Response edit(@PathParam("id") Integer id, ShipmentDTO entity) {
         try {
-            ProductBO productBO = new ProductBO();
-            if (productBO.editProduct(id, entity))
+            ShipmentBO ShipmentBO = new ShipmentBO();
+            if (ShipmentBO.editShipment(id, entity))
                 return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
@@ -66,8 +66,8 @@ public class ProductService {
     @Path("{id}")
     public Response remove(@PathParam("id") Integer id) {
         try {
-            ProductBO productBO = new ProductBO();
-            if (productBO.removeProduct(id))
+            ShipmentBO ShipmentBO = new ShipmentBO();
+            if (ShipmentBO.removeShipment(id))
                 return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
@@ -79,11 +79,11 @@ public class ProductService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response find(@PathParam("id") Integer id) {
-        ProductBO productBO = new ProductBO();
-        ProductDTO result = new ProductDTO();
+        ShipmentBO ShipmentBO = new ShipmentBO();
+        ShipmentDTO result = new ShipmentDTO();
         try {
-            result = productBO.getProductById(id);
-            if (result.getName() != null)
+            result = ShipmentBO.getShipmentById(id);
+            if (result.getId() != null)
                 return Response.ok().entity(result).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
@@ -95,9 +95,9 @@ public class ProductService {
     // @Produces(MediaType.APPLICATION_JSON)
     // public Response findAll() {
     // try {
-    // ProductBO productBO = new ProductBO();
-    // ProductEnvelopeDTO result = new ProductEnvelopeDTO();
-    // result.setProducts(productBO.getAllProducts());
+    // ShipmentBO ShipmentBO = new ShipmentBO();
+    // ShipmentEnvelopeDTO result = new ShipmentEnvelopeDTO();
+    // result.setProducts(ShipmentBO.getAllProducts());
     // if (!result.getProducts().isEmpty())
     // return Response.ok().entity(result).build();
     // } catch (Exception e) {
@@ -110,14 +110,17 @@ public class ProductService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response filterProduct(@QueryParam("offset") int offset, @QueryParam("limit") int limit,
-            @QueryParam("name") String name, @QueryParam("brand") String brand, @QueryParam("category") String category,
-            @QueryParam("stock") int stock) {
-        ProductBO productBO = new ProductBO();
-        ProductEnvelopeDTO result = new ProductEnvelopeDTO();
+            @QueryParam("importID") Integer importID, @QueryParam("deliverDate") Date deliverDate, @QueryParam("shipmentID") String shipmentID,
+            @QueryParam("shipmentCompany") String shipmentCompany, @QueryParam("shipmentStatus") String shipmentStatus
+            ) {
+        ShipmentBO ShipmentBO = new ShipmentBO();
+        ShipmentEnvelopeDTO result = new ShipmentEnvelopeDTO();
         try {
-            result = productBO.getFilteredProducts(offset, limit, name, brand, category, stock);
-            if (!result.getProducts().isEmpty())
+            result = ShipmentBO.getFilteredShipment(offset, limit, importID, deliverDate, shipmentID, shipmentCompany, shipmentStatus);
+            if (!result.getShipments().isEmpty()) {
+         
                 return Response.ok().entity(result).build();
+            }
         } catch (Exception e) {
             //
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();

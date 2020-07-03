@@ -22,7 +22,7 @@ public class UserDAO extends AbstractDAO {
         userDTO.setUserName(rs.getString("UserName"));
         userDTO.setEmail(rs.getString("Email"));
         userDTO.setPassword(rs.getString("Password"));
-        userDTO.setRole(rs.getString("Role"));
+        userDTO.setAdmin(rs.getBoolean("IsAdmin"));
     }
 
     public UserDTO getUserFromName(String userName) throws Exception {
@@ -58,10 +58,10 @@ public class UserDAO extends AbstractDAO {
         return userDTO;
     }
 
-    public boolean createUser(String userName, String email, String hashedPassword, String role) throws Exception {
+    public boolean createUser(String userName, String email, String hashedPassword) throws Exception {
         try {
-            String query = "EXEC USP_InsertUser ? , ? , ? , ?";
-            if (UserDAO.super.ExecuteNonQuery(query, new Object[] { userName, email, hashedPassword, role }) == 1)
+            String query = "EXEC USP_InsertUser ? , ? , ?";
+            if (UserDAO.super.ExecuteNonQuery(query, new Object[] { userName, email, hashedPassword }) == 1)
                 return true;
         } catch (Exception e) {
             // System.out.println(e.toString());
@@ -70,10 +70,10 @@ public class UserDAO extends AbstractDAO {
         return false;
     }
 
-    public boolean setRole(String email, String role) throws Exception {
+    public boolean setAdmin(String email) throws Exception {
         try {
-            String query = "EXEC USP_UpdateRole ? , ?";
-            if (UserDAO.super.ExecuteNonQuery(query, new Object[] { email, role }) == 1)
+            String query = "update Users set IsAdmin = 1 where Email = N'" + email + "'";
+            if (UserDAO.super.ExecuteNonQuery(query, null) == 1)
                 return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,7 +95,7 @@ public class UserDAO extends AbstractDAO {
     public List<UserDTO> getEmployees() throws Exception {
         List<UserDTO> employees = new ArrayList<>();
         try {
-            String query = "select * from Users where Role != N'Admin'";
+            String query = "select * from Users where IsAdmin=0";
             ResultSet rs = UserDAO.super.ExecuteQuery(query, null);
             while (rs.next()) {
                 UserDTO userDTO = new UserDTO();

@@ -5,8 +5,6 @@
  */
 package sportsstore.services;
 
-import javax.annotation.security.RolesAllowed;
-
 /**
  * REST Web Service
  *
@@ -27,7 +25,6 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import sportsstore.bo.PhotoBO;
 import sportsstore.dto.PhotoDTO;
-import sportsstore.helper.Authentication.Role;
 
 @Stateless
 @Path("photo")
@@ -36,7 +33,6 @@ public class PhotoService {
     public PhotoService() {
     }
 
-    @RolesAllowed(Role.ROLE_ADMIN)
     @POST
     @Path("{id}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -65,7 +61,6 @@ public class PhotoService {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-    @RolesAllowed(Role.ROLE_ADMIN)
     @DELETE
     @Path("{id}")
     public Response remove(@PathParam("id") String id) {
@@ -79,7 +74,6 @@ public class PhotoService {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
-    @RolesAllowed(Role.ROLE_ADMIN)
     @PUT
     @Path("{id}")
     public Response setMain(@PathParam("id") String id) {

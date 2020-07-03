@@ -8,27 +8,18 @@ public class UserDTO {
     private String userName;
     private String email;
     private String password;
-    private String role;
-    private String token;
+    private boolean isAdmin;
 
     public String getId() {
         return id;
     }
 
-    public String getRole() {
-        return role;
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public String getPassword() {
