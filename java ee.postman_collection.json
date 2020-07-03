@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1443c4a2-80e2-41af-a1a4-f0a6e48d09b5",
+		"_postman_id": "12047d0b-4a6f-4734-9726-c6fa8f71760c",
 		"name": "java ee",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -153,7 +153,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "89303622-b6e4-4b89-9e2a-db7b9c96e8e2",
+						"id": "4440e706-c1db-4e2f-b541-3071f15c377d",
 						"exec": [
 							"var moment = require(\"moment\");\r",
 							"\r",
@@ -240,7 +240,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "bd10f394-dcd5-4993-9a51-3c2028ffe623",
+						"id": "948ed523-424a-49ed-bd11-ec1370cee607",
 						"exec": [
 							"",
 							""
@@ -251,7 +251,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0b5c55bb-77b9-4eea-aff7-d2fcfb99379b",
+						"id": "0377efb9-37fd-4ea8-a0d1-f2e3827eb534",
 						"exec": [
 							""
 						],
@@ -321,7 +321,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "21cbe763-e147-4386-b8a1-ddfab02faaa6",
+						"id": "f32f3335-ac34-4b12-aa81-3e2f8af30898",
 						"exec": [
 							"",
 							""
@@ -332,7 +332,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "eab6e99b-8ee4-4435-9965-574d48670063",
+						"id": "15cbbe1b-0268-491c-b412-7ca6f18975f1",
 						"exec": [
 							""
 						],
@@ -403,7 +403,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "f4a0a216-bb18-4821-a7ec-1a5431aabbd9",
+						"id": "9cb4de1a-843c-4e38-8a79-30a36c59c77f",
 						"exec": [
 							"",
 							""
@@ -414,7 +414,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6066e1df-9b63-402f-a12d-0e0dcfb37d37",
+						"id": "023bcc66-8f17-4a8e-a3a4-e9a263dd7de6",
 						"exec": [
 							""
 						],
@@ -472,7 +472,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "08b27319-a474-4ff9-bd37-5a0ee8dcaee6",
+						"id": "0458cb4b-1588-4e26-88e5-f5c5e9dfe4e3",
 						"exec": [
 							"",
 							""
@@ -521,7 +521,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "12f2ffe7-57a1-460c-bdb5-c1e6b6a43dcf",
+						"id": "f5bdc747-7abc-4da2-b227-de3bc862100d",
 						"exec": [
 							"",
 							""
@@ -532,7 +532,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "2c16f3ba-5c22-4851-af63-9b91124bf606",
+						"id": "6f2f7c59-f431-41df-a9a1-0e653f3686d6",
 						"exec": [
 							""
 						],
@@ -579,7 +579,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "9308fec4-e622-430d-bc25-cae2dad1492e",
+						"id": "9c928f38-7395-467a-ba83-d614f2a97041",
 						"exec": [
 							"",
 							""
@@ -970,6 +970,314 @@
 						"rest",
 						"imports",
 						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get shipmentID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/shipment/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"shipment",
+						"5"
+					]
+				},
+				"description": "get shipment based on path param ID"
+			},
+			"response": []
+		},
+		{
+			"name": "get orderShipmentID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orderShipment/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"orderShipment",
+						"5"
+					]
+				},
+				"description": "get shipment based on path param ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Get filterd Import Shipment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/shipment?offset=0&limit=2&shipmentID=AA&shipmentCompany=A&shipmentStatus=Processing",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"shipment"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "deliverDate",
+							"value": "2020-02-01",
+							"disabled": true
+						},
+						{
+							"key": "shipmentID",
+							"value": "AA"
+						},
+						{
+							"key": "shipmentCompany",
+							"value": "A"
+						},
+						{
+							"key": "shipmentStatus",
+							"value": "Processing"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get filterd Order Shipment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/shipment?offset=0&limit=2&shipmentID=AA&shipmentCompany=A&shipmentStatus=Processing",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"shipment"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "deliverDate",
+							"value": "2020-02-01",
+							"disabled": true
+						},
+						{
+							"key": "shipmentID",
+							"value": "AA"
+						},
+						{
+							"key": "shipmentCompany",
+							"value": "A"
+						},
+						{
+							"key": "shipmentStatus",
+							"value": "Processing"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create Import shipment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"importID\":5,\r\n    \"deliverDate\":\"2020-09-12\",\r\n    \"shipmentStatus\":\"Delivered\",\r\n    \"shipmentID\":\"CC\",\r\n    \"shipmentCompany\":\"Giao hang nhanh\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/shipment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"shipment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create Order shipment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"orderID\":5,\r\n    \"deliverDate\":\"2020-09-12\",\r\n    \"shipmentStatus\":\"Delivered\",\r\n    \"shipmentID\":\"CC\",\r\n    \"shipmentCompany\":\"Giao hang nhanh\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orderShipment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"orderShipment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Import shipment",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"importID\":4,\r\n    \"deliverDate\":\"2020-09-12\",\r\n    \"shipmentStatus\":\"Delivered\",\r\n    \"shipmentID\":\"CC\",\r\n    \"shipmentCompany\":\"Giao hang nhanh\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/shipment/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"shipment",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Order shipment",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"importID\":4,\r\n    \"deliverDate\":\"2020-09-12\",\r\n    \"shipmentStatus\":\"Delivered\",\r\n    \"shipmentID\":\"CC\",\r\n    \"shipmentCompany\":\"Giao hang nhanh\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/shipment/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"shipment",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Import shipment",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/shipment/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"shipment",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Order shipment",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/shipment/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"shipment",
+						"9"
 					]
 				}
 			},
