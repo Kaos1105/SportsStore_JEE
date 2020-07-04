@@ -40,7 +40,7 @@ public class DBConnectionService {
         Connection conn = null;
         try {
             String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-            String URL = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=master;integratedSecurity=true;";
+            String URL = "jdbc:sqlserver://localhost;databaseName=SportsStoreJEE;integratedSecurity=true;";
             String username = "";
             String password = "";
 
