@@ -21,12 +21,13 @@ public class OrderDAO extends AbstractDAO {
         super(conn);
     }
 
-    public void writeOrderDTO(OrderDTO orderDTO, ResultSet orderRs) throws Exception {
-        orderDTO.setId(orderRs.getInt("id"));
-        orderDTO.setPlacementDate(orderRs.getDate("placementDate"));
-        orderDTO.setRecipientAddress(orderRs.getString("recipientAddress"));
-        orderDTO.setRecipientName(orderRs.getString("recipientName"));
-        orderDTO.setRecipientPhone(orderRs.getString("recipientPhone"));
+    public void writeOrderDTO(OrderDTO orderDTO, ResultSet orders) throws Exception {
+        orderDTO.setId(orders.getInt("id"));
+        orderDTO.setPlacementDate(orders.getDate("placementDate"));
+        orderDTO.setRecipientAddress(orders.getString("recipientAddress"));
+        orderDTO.setRecipientName(orders.getString("recipientName"));
+        orderDTO.setRecipientPhone(orders.getString("recipientPhone"));
+        orderDTO.setStatus(orders.getString("status"));
     }
 
     public void writeOrderedProductDTO(OrderedProductDTO orderedProductDTO, ResultSet rs) throws Exception {
@@ -51,7 +52,7 @@ public class OrderDAO extends AbstractDAO {
                 productList.add(orderedProductDTO);
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
         }
         return productList;
@@ -69,20 +70,21 @@ public class OrderDAO extends AbstractDAO {
             }
             orderDTOList.add(orderDTO);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
         }
         return orderDTOList;
     }
 
     public OrderEnvelopeDTO getFiltered(int offset, int limit, String name, String address, String phone,
-            Date placementDate) throws Exception {
+            Date placementDate, String status) throws Exception {
         OrderEnvelopeDTO orderEnvelope = new OrderEnvelopeDTO();
         List<OrderDTO> orderDTOList = new ArrayList<>();
 
         try {
-            String query = "EXEC USP_FilterOrder ? , ? , ? , ?";
-            ResultSet rs = OrderDAO.super.ExecuteQuery(query, new Object[] { name, address, phone, placementDate });
+            String query = "EXEC USP_FilterOrder ? , ? , ? , ? , ?";
+            ResultSet rs = OrderDAO.super.ExecuteQuery(query,
+                    new Object[] { name, address, phone, placementDate, status });
             while (rs.next()) {
                 OrderDTO orderDTO = new OrderDTO();
                 writeOrderDTO(orderDTO, rs);
@@ -95,7 +97,7 @@ public class OrderDAO extends AbstractDAO {
                         .collect(Collectors.toList());
             orderEnvelope.setProducts(orderDTOList);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
         }
         return orderEnvelope;
@@ -111,7 +113,7 @@ public class OrderDAO extends AbstractDAO {
                 writeOrderDTO(orderDTO, orderRs);
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
         }
         return orderDTO;
@@ -124,7 +126,7 @@ public class OrderDAO extends AbstractDAO {
                     input.getRecipientAddress(), input.getRecipientPhone(), }) == 1)
                 return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
         }
         return false;
@@ -141,10 +143,10 @@ public class OrderDAO extends AbstractDAO {
             }
             return result;
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
-            return false;
         }
+        return false;
     }
 
     public boolean edit(OrderDTO input) throws Exception {
@@ -154,7 +156,7 @@ public class OrderDAO extends AbstractDAO {
                     input.getRecipientName(), input.getRecipientAddress(), input.getRecipientPhone() }) == 1)
                 return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
         }
         return false;
@@ -167,10 +169,10 @@ public class OrderDAO extends AbstractDAO {
 
             return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
-            return false;
         }
+        return false;
     }
 
     public boolean removeOrderedProduct(Integer id) throws Exception {
@@ -180,9 +182,9 @@ public class OrderDAO extends AbstractDAO {
 
             return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
-            return false;
         }
+        return false;
     }
 }

@@ -39,7 +39,7 @@ public class ImportBO {
     }
 
     public ImportEnvelopeDTO getFilteredImports(int offset, int limit, String name, String address, String phone,
-            String date) throws Exception {
+            String date, String status) throws Exception {
         ImportDAO importDAO = null;
         PhotoBO photoBO = null;
         Date placementDate = null;
@@ -49,7 +49,8 @@ public class ImportBO {
         try {
             importDAO = new ImportDAO();
             photoBO = new PhotoBO();
-            ImportEnvelopeDTO result = importDAO.getFiltered(offset, limit, name, address, phone, placementDate);
+            ImportEnvelopeDTO result = importDAO.getFiltered(offset, limit, name, address, phone, placementDate,
+                    status);
 
             // set products in orders
             for (ImportDTO importDTO : result.getImports()) {

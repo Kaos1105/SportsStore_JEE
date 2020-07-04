@@ -9,6 +9,7 @@ public class ImportDTO {
     private String wholesalerAddress;
     private String wholesalerPhone;
     private Date placementDate;
+    private String status;
 
     // Products
     private List<ImportedProductDTO> products;
@@ -16,7 +17,16 @@ public class ImportDTO {
     public ImportDTO() {
     }
 
-    public ImportDTO(Integer id, String wholesalerName, String wholesalerAddress, String wholesalerPhone, Date placementDate, List<ImportedProductDTO> products) {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public ImportDTO(Integer id, String wholesalerName, String wholesalerAddress, String wholesalerPhone,
+            Date placementDate, List<ImportedProductDTO> products) {
         this.id = id;
         this.wholesalerName = wholesalerName;
         this.wholesalerAddress = wholesalerAddress;

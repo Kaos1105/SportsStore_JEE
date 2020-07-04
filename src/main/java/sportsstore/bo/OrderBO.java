@@ -39,7 +39,7 @@ public class OrderBO {
     }
 
     public OrderEnvelopeDTO getFilteredOrders(int offset, int limit, String name, String address, String phone,
-            String date) throws Exception {
+            String date, String status) throws Exception {
         OrderDAO orderDAO = null;
         PhotoBO photoBO = null;
         Date placementDate = null;
@@ -49,7 +49,7 @@ public class OrderBO {
         try {
             orderDAO = new OrderDAO();
             photoBO = new PhotoBO();
-            OrderEnvelopeDTO result = orderDAO.getFiltered(offset, limit, name, address, phone, placementDate);
+            OrderEnvelopeDTO result = orderDAO.getFiltered(offset, limit, name, address, phone, placementDate, status);
 
             // set products in orders
             for (OrderDTO orderDTO : result.getOrders()) {

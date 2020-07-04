@@ -94,11 +94,11 @@ public class ImportService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response filterImports(@QueryParam("offset") int offset, @QueryParam("limit") int limit,
             @QueryParam("name") String name, @QueryParam("address") String address, @QueryParam("phone") String phone,
-            @QueryParam("date") String placementDate) {
+            @QueryParam("date") String placementDate, @QueryParam("status") String status) {
         ImportBO importBO = new ImportBO();
         ImportEnvelopeDTO result = new ImportEnvelopeDTO();
         try {
-            result = importBO.getFilteredImports(offset, limit, name, address, phone, placementDate);
+            result = importBO.getFilteredImports(offset, limit, name, address, phone, placementDate, status);
             if (!result.getImports().isEmpty())
                 return Response.ok().entity(result).build();
         } catch (Exception e) {

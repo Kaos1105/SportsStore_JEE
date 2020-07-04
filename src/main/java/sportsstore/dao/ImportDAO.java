@@ -22,12 +22,13 @@ public class ImportDAO extends AbstractDAO {
         super(conn);
     }
 
-    public void writeImportDTO(ImportDTO importDTO, ResultSet orderRs) throws Exception {
-        importDTO.setId(orderRs.getInt("id"));
-        importDTO.setPlacementDate(orderRs.getDate("placementDate"));
-        importDTO.setWholesalerName(orderRs.getString("wholesalerName"));
-        importDTO.setWholesalerAddress(orderRs.getString("wholesalerAddress"));
-        importDTO.setWholesalerPhone(orderRs.getString("wholesalerPhone"));
+    public void writeImportDTO(ImportDTO importDTO, ResultSet imports) throws Exception {
+        importDTO.setId(imports.getInt("id"));
+        importDTO.setPlacementDate(imports.getDate("placementDate"));
+        importDTO.setWholesalerName(imports.getString("wholesalerName"));
+        importDTO.setWholesalerAddress(imports.getString("wholesalerAddress"));
+        importDTO.setWholesalerPhone(imports.getString("wholesalerPhone"));
+        importDTO.setStatus(imports.getString("status"));
     }
 
     public void writeImportedProductDTO(ImportedProductDTO importedProductDTO, ResultSet rs) throws Exception {
@@ -55,7 +56,7 @@ public class ImportDAO extends AbstractDAO {
                 productList.add(importedProductDTO);
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
         }
         return productList;
@@ -73,20 +74,21 @@ public class ImportDAO extends AbstractDAO {
             }
             importDTOArrayList.add(importDTO);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
         }
         return importDTOArrayList;
     }
 
     public ImportEnvelopeDTO getFiltered(int offset, int limit, String name, String address, String phone,
-            Date placementDate) throws Exception {
+            Date placementDate, String status) throws Exception {
         ImportEnvelopeDTO importEnvelopeDTO = new ImportEnvelopeDTO();
         List<ImportDTO> importDTOArrayList = new ArrayList<>();
 
         try {
-            String query = "EXEC USP_FilterImport ? , ? , ? , ?";
-            ResultSet rs = ImportDAO.super.ExecuteQuery(query, new Object[] { name, address, phone, placementDate });
+            String query = "EXEC USP_FilterImport ? , ? , ? , ? , ?";
+            ResultSet rs = ImportDAO.super.ExecuteQuery(query,
+                    new Object[] { name, address, phone, placementDate, status });
             while (rs.next()) {
                 ImportDTO importDTO = new ImportDTO();
                 writeImportDTO(importDTO, rs);
@@ -99,7 +101,7 @@ public class ImportDAO extends AbstractDAO {
                         .collect(Collectors.toList());
             importEnvelopeDTO.setImports(importDTOArrayList);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
         }
         return importEnvelopeDTO;
@@ -115,7 +117,7 @@ public class ImportDAO extends AbstractDAO {
                 writeImportDTO(importDTO, rs);
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
         }
         return importDTO;
@@ -128,7 +130,7 @@ public class ImportDAO extends AbstractDAO {
                     input.getWholesalerName(), input.getWholesalerAddress(), input.getWholesalerPhone(), }) == 1)
                 return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
         }
         return false;
@@ -145,10 +147,10 @@ public class ImportDAO extends AbstractDAO {
             }
             return result;
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
-            return false;
         }
+        return false;
     }
 
     public boolean edit(ImportDTO input) throws Exception {
@@ -158,7 +160,7 @@ public class ImportDAO extends AbstractDAO {
                     input.getWholesalerName(), input.getWholesalerAddress(), input.getWholesalerPhone() }) == 1)
                 return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
         }
         return false;
@@ -171,10 +173,10 @@ public class ImportDAO extends AbstractDAO {
 
             return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
-            return false;
         }
+        return false;
     }
 
     public boolean removeImportedProduct(Integer id) throws Exception {
@@ -184,9 +186,9 @@ public class ImportDAO extends AbstractDAO {
 
             return true;
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             // throw e;
-            return false;
         }
+        return false;
     }
 }

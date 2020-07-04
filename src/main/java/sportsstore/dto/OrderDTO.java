@@ -11,6 +11,7 @@ public class OrderDTO {
     private String recipientAddress;
     private String recipientPhone;
     private Date placementDate;
+    private String status;
 
     // Products
     private List<OrderedProductDTO> products;
@@ -19,13 +20,22 @@ public class OrderDTO {
 
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public OrderDTO(final int id, final String recipientName, final String recipientAddress,
-            final String recipientPhone, final Date placementDate) {
+            final String recipientPhone, final Date placementDate, List<OrderedProductDTO> products) {
         this.id = id;
         this.recipientName = recipientName;
         this.recipientAddress = recipientAddress;
         this.recipientPhone = recipientPhone;
         this.placementDate = placementDate;
+        this.products = products;
     }
 
     public Integer getId() {
