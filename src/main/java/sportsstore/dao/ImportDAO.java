@@ -125,9 +125,10 @@ public class ImportDAO extends AbstractDAO {
 
     public boolean create(ImportDTO input) throws Exception {
         try {
-            String query = "EXEC USP_InsertImport ? , ? , ? , ?";
-            if (ImportDAO.super.ExecuteNonQuery(query, new Object[] { input.getPlacementDate(),
-                    input.getWholesalerName(), input.getWholesalerAddress(), input.getWholesalerPhone(), }) == 1)
+            String query = "EXEC USP_InsertImport ? , ? , ? , ? , ?";
+            if (ImportDAO.super.ExecuteNonQuery(query,
+                    new Object[] { input.getPlacementDate(), input.getWholesalerName(), input.getWholesalerAddress(),
+                            input.getWholesalerPhone(), input.getStatus() }) == 1)
                 return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,9 +156,10 @@ public class ImportDAO extends AbstractDAO {
 
     public boolean edit(ImportDTO input) throws Exception {
         try {
-            String query = "EXEC USP_UpdateImport ? , ? , ? , ? , ?";
-            if (ImportDAO.super.ExecuteNonQuery(query, new Object[] { input.getId(), input.getPlacementDate(),
-                    input.getWholesalerName(), input.getWholesalerAddress(), input.getWholesalerPhone() }) == 1)
+            String query = "EXEC USP_UpdateImport ? , ? , ? , ? , ? , ?";
+            if (ImportDAO.super.ExecuteNonQuery(query,
+                    new Object[] { input.getId(), input.getPlacementDate(), input.getWholesalerName(),
+                            input.getWholesalerAddress(), input.getWholesalerPhone(), input.getStatus() }) == 1)
                 return true;
         } catch (Exception e) {
             e.printStackTrace();

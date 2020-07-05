@@ -46,12 +46,16 @@ public class ImportService {
         try {
             ImportBO importBO = new ImportBO();
 
-            if (importBO.editImport(id, entity)) {
-                if (entity.getProducts() != null || !entity.getProducts().isEmpty()) {
-                    if (importBO.editImportedProduct(id, entity))
+            if (entity.getProducts() != null || !entity.getProducts().isEmpty()) {
+                if (importBO.editImportedProduct(id, entity)) {
+                    if (importBO.editImport(id, entity)) {
                         return Response.ok().build();
+                    }
                 }
-                return Response.ok().build();
+            } else {
+                if (importBO.editImport(id, entity)) {
+                    return Response.ok().build();
+                }
             }
 
         } catch (Exception e) {
@@ -99,7 +103,7 @@ public class ImportService {
         ImportEnvelopeDTO result = new ImportEnvelopeDTO();
         try {
             result = importBO.getFilteredImports(offset, limit, name, address, phone, placementDate, status);
-            if (!result.getImports().isEmpty())
+            if (result.getImports() != null)
                 return Response.ok().entity(result).build();
         } catch (Exception e) {
             //

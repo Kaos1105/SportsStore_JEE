@@ -125,7 +125,7 @@ public class ProductService {
         ProductEnvelopeDTO result = new ProductEnvelopeDTO();
         try {
             result = productBO.getFilteredProducts(offset, limit, name, brand, category, stock);
-            if (!result.getProducts().isEmpty())
+            if (result.getProducts() != null)
                 return Response.ok().entity(result).build();
         } catch (Exception e) {
             //

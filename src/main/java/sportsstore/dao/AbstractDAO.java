@@ -20,18 +20,21 @@ import java.sql.*;
  * @author Max
  */
 public abstract class AbstractDAO {
+    private static Boolean databaseChecked = false;
     protected Connection connection;
 
     public AbstractDAO() throws Exception {
-        if (!CheckDatabaseExists("SportsStoreJEE")) {
-            try {
-                URL resourceCMD = getClass().getClassLoader().getResource("");
-                Path pathCMD = Paths.get(URI.create(resourceCMD.toString()));
-                File dir = new File(pathCMD.toString());
-                Process p = Runtime.getRuntime().exec("sqlcmd -S 127.0.0.1 -E -i Database.sql", null, dir);
-                p.waitFor();
-            } catch (final Exception err) {
-                err.printStackTrace();
+        if (!databaseChecked) {
+            if (!CheckDatabaseExists("SportsStoreJEE")) {
+                try {
+                    URL resourceCMD = getClass().getClassLoader().getResource("");
+                    Path pathCMD = Paths.get(URI.create(resourceCMD.toString()));
+                    File dir = new File(pathCMD.toString());
+                    Process p = Runtime.getRuntime().exec("sqlcmd -S 127.0.0.1 -E -i Database.sql", null, dir);
+                    p.waitFor();
+                } catch (final Exception err) {
+                    err.printStackTrace();
+                }
             }
         }
         try {
@@ -66,6 +69,7 @@ public abstract class AbstractDAO {
     }
 
     private Boolean CheckDatabaseExists(final String dbName) {
+        databaseChecked = true;
         try {
             final Connection con = DBConnectionService.getConnection("master");
             ResultSet rs = null;

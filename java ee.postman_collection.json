@@ -8,8 +8,25 @@
 		{
 			"name": "Get Product",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyIiwiaWF0IjoxNTkzNjEwNTMzLCJzdWIiOiJlbXBsb3llZTFAZ21haWwuY29tIiwiaXNzIjoiRW1wbG95ZWUxIiwiZXhwIjoxNTk0MjE1MzMzfQ.Xk6Bu56jMDWoXMPWDRB_SSFzhJJGyWEVGaRY-BQHOhw",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
 				"url": {
 					"raw": "http://localhost:8080/SportsStore-1.0/rest/products/1",
 					"protocol": "http",
@@ -110,7 +127,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/SportsStore-1.0/rest/users",
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/users/getEmployees",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -119,7 +136,8 @@
 					"path": [
 						"SportsStore-1.0",
 						"rest",
-						"users"
+						"users",
+						"getEmployees"
 					]
 				}
 			},
@@ -467,6 +485,38 @@
 			"response": []
 		},
 		{
+			"name": "Get current user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzIiwiaWF0IjoxNTkzNjE4MDY3LCJzdWIiOiJlbXBsb3llZTJAZ21haWwuY29tIiwiaXNzIjoiZW1wbG95ZWUyMCIsImV4cCI6MTU5NDIyMjg2N30.5G6gaH5Ev2hsPIfxCWESXPRvQyJU0F2AtpbvFTdCv-Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Delete User",
 			"event": [
 				{
@@ -551,7 +601,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\":\"employee3@gmail.com\",\n\t\"password\":\"kaos110599\"\n}",
+					"raw": "{\n\t\"email\":\"admin@gmail.com\",\n\t\"password\":\"kaos110599\"\n}",
 					"options": {
 						"raw": {}
 					}
@@ -599,7 +649,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\":\"employee4@gmail.com\",\n\t\"userName\":\"employee4\",\n\t\"password\":\"P@ssw0rd\"\n} "
+					"raw": "{\n\t\"email\":\"employee2@gmail.com\",\n\t\"userName\":\"Employee2\",\n\t\"password\":\"kaos110599\",\n\t\"role\":\"Employee\"\n} "
 				},
 				"url": {
 					"raw": "http://localhost:8080/SportsStore-1.0/rest/users/register",
@@ -622,14 +672,7 @@
 			"name": "Update User Bio",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PUT",
 				"header": [
@@ -641,7 +684,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\":\"employee3@gmail.com\",\n\t\"userName\":\"employee30\",\n\t\"password\":\"kaos110599\"\n}"
+					"raw": "{\n\t\"email\":\"employee2@gmail.com\",\n\t\"userName\":\"employee20\",\n\t\"password\":\"kaos110599\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/SportsStore-1.0/rest/users/",
@@ -661,12 +704,53 @@
 			"response": []
 		},
 		{
+			"name": "Update Role",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/users/employee2@gmail.com?role=Admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"users",
+						"employee2@gmail.com"
+					],
+					"query": [
+						{
+							"key": "role",
+							"value": "Admin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Filtered Orders",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/SportsStore-1.0/rest/orders?offset=5&limit=5",
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orders?name=A",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -680,11 +764,22 @@
 					"query": [
 						{
 							"key": "offset",
-							"value": "5"
+							"value": "5",
+							"disabled": true
 						},
 						{
 							"key": "limit",
-							"value": "5"
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "status",
+							"value": "finished",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "A"
 						}
 					]
 				}
@@ -697,7 +792,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/SportsStore-1.0/rest/orders/8",
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orders/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -707,7 +802,7 @@
 						"SportsStore-1.0",
 						"rest",
 						"orders",
-						"8"
+						"1"
 					]
 				}
 			},
@@ -834,7 +929,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/SportsStore-1.0/rest/imports?date=2020-02-01",
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/imports?status=Processing",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -863,7 +958,12 @@
 						},
 						{
 							"key": "date",
-							"value": "2020-02-01"
+							"value": "2020-02-01",
+							"disabled": true
+						},
+						{
+							"key": "status",
+							"value": "Processing"
 						}
 					]
 				}
@@ -876,7 +976,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/SportsStore-1.0/rest/imports/3",
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/imports/4",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -886,7 +986,7 @@
 						"SportsStore-1.0",
 						"rest",
 						"imports",
-						"3"
+						"4"
 					]
 				}
 			},
@@ -970,6 +1070,322 @@
 						"rest",
 						"imports",
 						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get importShipment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/importShipment/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"importShipment",
+						"5"
+					]
+				},
+				"description": "get shipment based on path param ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Get orderShipment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orderShipment/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"orderShipment",
+						"5"
+					]
+				},
+				"description": "get shipment based on path param ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Get filterd imporShipment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/importShipment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"importShipment"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "deliverDate",
+							"value": "2020-02-01",
+							"disabled": true
+						},
+						{
+							"key": "shipmentID",
+							"value": "AA",
+							"disabled": true
+						},
+						{
+							"key": "shipmentCompany",
+							"value": "A",
+							"disabled": true
+						},
+						{
+							"key": "shipmentStatus",
+							"value": "Processing",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get filterd orderShipment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orderShipment?offset=2&limit=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"orderShipment"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "2"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "deliverDate",
+							"value": "2020-03-05",
+							"disabled": true
+						},
+						{
+							"key": "shipmentID",
+							"value": "AA",
+							"disabled": true
+						},
+						{
+							"key": "shipmentCompany",
+							"value": "A",
+							"disabled": true
+						},
+						{
+							"key": "shipmentStatus",
+							"value": "Processing",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create importShipment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"importID\":5,\r\n    \"deliverDate\":\"2020-09-12\",\r\n    \"shipmentStatus\":\"Delivered\",\r\n    \"shipmentID\":\"GG\",\r\n    \"shipmentCompany\":\"Giao hang nhanh\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/importShipment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"importShipment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create orderShipment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"orderID\":5,\r\n    \"deliverDate\":\"2020-09-12\",\r\n    \"shipmentStatus\":\"Delivered\",\r\n    \"shipmentID\":\"GG\",\r\n    \"shipmentCompany\":\"Giao hang nhanh\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orderShipment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"orderShipment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update importShipment",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"importID\":4,\r\n    \"deliverDate\":\"2020-10-12\",\r\n    \"shipmentStatus\":\"Delivered\",\r\n    \"shipmentID\":\"CC\",\r\n    \"shipmentCompany\":\"Giao hang tiết kiệm\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/importShipment/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"importShipment",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update orderShipment",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"orderID\":4,\r\n    \"deliverDate\":\"2020-10-12\",\r\n    \"shipmentStatus\":\"Delivered\",\r\n    \"shipmentID\":\"CC\",\r\n    \"shipmentCompany\":\"Giao hang tiết kiệm\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orderShipment/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"orderShipment",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove importShipment",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/importShipment/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"importShipment",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove orderShipment",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orderShipment/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"orderShipment",
+						"8"
 					]
 				}
 			},

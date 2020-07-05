@@ -113,7 +113,7 @@ public class OrderShipmentService {
         try {
             result = OrderShipmentBO.getFilteredShipment(offset, limit, orderID, deliverDate, shipmentID,
                     shipmentCompany, shipmentStatus);
-            if (!result.getShipments().isEmpty()) {
+            if (result.getShipments() != null) {
 
                 return Response.ok().entity(result).build();
             }

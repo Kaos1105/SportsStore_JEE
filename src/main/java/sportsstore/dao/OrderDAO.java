@@ -121,9 +121,9 @@ public class OrderDAO extends AbstractDAO {
 
     public boolean create(OrderDTO input) throws Exception {
         try {
-            String query = "EXEC USP_InsertOrder ? , ? , ? , ?";
+            String query = "EXEC USP_InsertOrder ? , ? , ? , ? , ?";
             if (OrderDAO.super.ExecuteNonQuery(query, new Object[] { input.getPlacementDate(), input.getRecipientName(),
-                    input.getRecipientAddress(), input.getRecipientPhone(), }) == 1)
+                    input.getRecipientAddress(), input.getRecipientPhone(), input.getStatus() }) == 1)
                 return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,9 +151,10 @@ public class OrderDAO extends AbstractDAO {
 
     public boolean edit(OrderDTO input) throws Exception {
         try {
-            String query = "EXEC USP_UpdateOrder ? , ? , ? , ? , ?";
-            if (OrderDAO.super.ExecuteNonQuery(query, new Object[] { input.getId(), input.getPlacementDate(),
-                    input.getRecipientName(), input.getRecipientAddress(), input.getRecipientPhone() }) == 1)
+            String query = "EXEC USP_UpdateOrder ? , ? , ? , ? , ? , ?";
+            if (OrderDAO.super.ExecuteNonQuery(query,
+                    new Object[] { input.getId(), input.getPlacementDate(), input.getRecipientName(),
+                            input.getRecipientAddress(), input.getRecipientPhone(), input.getStatus() }) == 1)
                 return true;
         } catch (Exception e) {
             e.printStackTrace();

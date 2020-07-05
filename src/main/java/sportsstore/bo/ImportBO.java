@@ -135,30 +135,33 @@ public class ImportBO {
 
     public boolean editImportedProduct(Integer id, ImportDTO importDTO) throws Exception {
         ImportDAO importDAO = null;
-        ProductDAO productDAO = null;
+
         try {
             importDTO.setId(id);
             importDAO = new ImportDAO();
-            productDAO = new ProductDAO();
-            if (importDAO.get(id) == null)
+
+            ImportDTO result = importDAO.get(id);
+            if (result == null)
                 return false;
+
             if (importDAO.getProductsInImport(id).isEmpty()) {
+                if (importDAO.createImportedProduct(importDTO)) {
+                    if (!result.getStatus().equals("Canceled")) {
+                        if (!EditImportedProductQuantity(importDTO, true))
+                            return false;
+                    }
+                    return true;
+                }
+            } else {
                 if (importDAO.removeImportedProduct(id)) {
                     if (importDAO.createImportedProduct(importDTO)) {
-                        for (ImportedProductDTO product : importDTO.getProducts()) {
-                            ProductDTO updateProduct = productDAO.get(product.getProduct().getId());
-                            if (updateProduct == null)
-                                return false;
-
-                            updateProduct.setStock(updateProduct.getStock() + product.getQuantity());
-                            if (!productDAO.edit(updateProduct))
+                        if ((result.getStatus().equals("Processing") && importDTO.getStatus().equals("Canceled"))) {
+                            if (!EditImportedProductQuantity(importDTO, false))
                                 return false;
                         }
-
                         return true;
                     }
                 }
-            } else {
                 return true;
             }
 
@@ -166,9 +169,34 @@ public class ImportBO {
             throw e;
         } finally {
             importDAO.closeConnection();
-            productDAO.closeConnection();
         }
         return false;
+    }
+
+    public boolean EditImportedProductQuantity(ImportDTO importDTO, boolean isPlus) throws Exception {
+        ProductDAO productDAO = null;
+        try {
+            productDAO = new ProductDAO();
+
+            for (ImportedProductDTO product : importDTO.getProducts()) {
+                ProductDTO updateProduct = productDAO.get(product.getProduct().getId());
+                if (updateProduct == null)
+                    return false;
+
+                if (isPlus)
+                    updateProduct.setStock(updateProduct.getStock() + product.getQuantity());
+                else
+                    updateProduct.setStock(updateProduct.getStock() - product.getQuantity());
+
+                if (!productDAO.edit(updateProduct))
+                    return false;
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            productDAO.closeConnection();
+        }
+        return true;
     }
 
     public boolean removeImport(Integer id) throws Exception {

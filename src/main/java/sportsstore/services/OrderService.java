@@ -46,12 +46,16 @@ public class OrderService {
         try {
             OrderBO orderBO = new OrderBO();
 
-            if (orderBO.editOrder(id, entity)) {
-                if (entity.getProducts() != null || !entity.getProducts().isEmpty()) {
-                    if (orderBO.editOrderedProduct(id, entity))
+            if (entity.getProducts() != null || !entity.getProducts().isEmpty()) {
+                if (orderBO.editOrderedProduct(id, entity)) {
+                    if (orderBO.editOrder(id, entity)) {
                         return Response.ok().build();
+                    }
                 }
-                return Response.ok().build();
+            } else {
+                if (orderBO.editOrder(id, entity)) {
+                    return Response.ok().build();
+                }
             }
 
         } catch (Exception e) {
@@ -131,7 +135,7 @@ public class OrderService {
         OrderEnvelopeDTO result = new OrderEnvelopeDTO();
         try {
             result = orderBO.getFilteredOrders(offset, limit, name, address, phone, placementDate, status);
-            if (!result.getOrders().isEmpty())
+            if (result.getOrders() != null)
                 return Response.ok().entity(result).build();
         } catch (Exception e) {
             //

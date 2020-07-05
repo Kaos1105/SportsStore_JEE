@@ -133,40 +133,66 @@ public class OrderBO {
 
     public boolean editOrderedProduct(Integer id, OrderDTO orderDTO) throws Exception {
         OrderDAO orderDAO = null;
-        ProductDAO productDAO = null;
 
         try {
             orderDTO.setId(id);
             orderDAO = new OrderDAO();
-            productDAO = new ProductDAO();
             OrderDTO result = orderDAO.get(id);
             if (result == null)
                 return false;
-            if (orderDAO.getProductsInOrder(id).isEmpty()) {
-                if (orderDAO.removeOrderedProduct(id)) {
-                    if (orderDAO.createOrderedProduct(orderDTO)) {
-                        for (OrderedProductDTO product : orderDTO.getProducts()) {
-                            ProductDTO updateProduct = productDAO.get(product.getProduct().getId());
-                            if (updateProduct == null)
-                                return false;
 
-                            updateProduct.setStock(updateProduct.getStock() - product.getQuantity());
-                            if (!productDAO.edit(updateProduct))
-                                return false;
-                        }
+            if (orderDAO.getProductsInOrder(id).isEmpty()) {
+                if (orderDAO.createOrderedProduct(orderDTO)) {
+                    if (!result.getStatus().equals("Canceled")) {
+                        if (!EditOrderedProductQuantity(orderDTO, false))
+                            return false;
                     }
                     return true;
                 }
             } else {
+                if (orderDAO.removeOrderedProduct(id)) {
+                    if (orderDAO.createOrderedProduct(orderDTO)) {
+                        if ((result.getStatus().equals("Processing") && orderDTO.getStatus().equals("Canceled"))) {
+                            if (!EditOrderedProductQuantity(orderDTO, true))
+                                return false;
+                        }
+                        return true;
+                    }
+                }
                 return true;
             }
         } catch (Exception e) {
             throw e;
         } finally {
             orderDAO.closeConnection();
-            productDAO.closeConnection();
         }
         return false;
+    }
+
+    public boolean EditOrderedProductQuantity(OrderDTO orderDTO, boolean isPlus) throws Exception {
+        ProductDAO productDAO = null;
+        try {
+            productDAO = new ProductDAO();
+
+            for (OrderedProductDTO product : orderDTO.getProducts()) {
+                ProductDTO updateProduct = productDAO.get(product.getProduct().getId());
+                if (updateProduct == null)
+                    return false;
+
+                if (isPlus)
+                    updateProduct.setStock(updateProduct.getStock() + product.getQuantity());
+                else
+                    updateProduct.setStock(updateProduct.getStock() - product.getQuantity());
+
+                if (!productDAO.edit(updateProduct))
+                    return false;
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            productDAO.closeConnection();
+        }
+        return true;
     }
 
     public boolean removeOrder(Integer id) throws Exception {

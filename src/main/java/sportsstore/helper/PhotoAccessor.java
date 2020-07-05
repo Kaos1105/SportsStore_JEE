@@ -41,7 +41,7 @@ public class PhotoAccessor implements IPhotoAccessor {
                 e.printStackTrace();
             }
         }
-        if (uploadResult.get("public_id") == null || (uploadResult.get("public_id") == ""))
+        if (uploadResult.get("public_id") == null || (uploadResult.get("public_id").equals("")))
             throw new Exception("Error Uploading");
         return new PhotoUploadResultDTO(uploadResult.get("public_id").toString(), uploadResult.get("url").toString());
     }

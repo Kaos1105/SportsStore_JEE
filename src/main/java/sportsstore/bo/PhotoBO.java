@@ -28,7 +28,7 @@ public class PhotoBO {
 
         try {
             productDAO = new ProductDAO();
-            if (productDAO.get(id).getName() == "")
+            if (productDAO.get(id).getName() == null)
                 return null;
             photoDAO = new PhotoDAO();
             return photoDAO.addPhoto(uploadFile, id);

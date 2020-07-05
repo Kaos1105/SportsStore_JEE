@@ -114,7 +114,7 @@ public class ImportShipmentService {
         try {
             result = importShipmentBO.getFilteredShipment(offset, limit, importID, deliverDate, shipmentID,
                     shipmentCompany, shipmentStatus);
-            if (!result.getShipments().isEmpty()) {
+            if (result.getShipments() != null) {
 
                 return Response.ok().entity(result).build();
             }
