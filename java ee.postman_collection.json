@@ -122,28 +122,6 @@
 			"response": []
 		},
 		{
-			"name": "Get Employees",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/SportsStore-1.0/rest/users/getEmployees",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"SportsStore-1.0",
-						"rest",
-						"users",
-						"getEmployees"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Delete Product",
 			"request": {
 				"method": "DELETE",
@@ -511,6 +489,28 @@
 						"rest",
 						"users",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/users/getEmployees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"users",
+						"getEmployees"
 					]
 				}
 			},
@@ -1127,7 +1127,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/SportsStore-1.0/rest/importShipment",
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/importShipment?importID=5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1168,6 +1168,10 @@
 							"key": "shipmentStatus",
 							"value": "Processing",
 							"disabled": true
+						},
+						{
+							"key": "importID",
+							"value": "5"
 						}
 					]
 				}
@@ -1180,7 +1184,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/SportsStore-1.0/rest/orderShipment?offset=2&limit=2",
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/orderShipment",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1194,11 +1198,13 @@
 					"query": [
 						{
 							"key": "offset",
-							"value": "2"
+							"value": "2",
+							"disabled": true
 						},
 						{
 							"key": "limit",
-							"value": "2"
+							"value": "2",
+							"disabled": true
 						},
 						{
 							"key": "deliverDate",
@@ -1218,6 +1224,11 @@
 						{
 							"key": "shipmentStatus",
 							"value": "Processing",
+							"disabled": true
+						},
+						{
+							"key": "orderID",
+							"value": "5",
 							"disabled": true
 						}
 					]
@@ -1386,6 +1397,27 @@
 						"rest",
 						"orderShipment",
 						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Shipment Id Options",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/shipmentOptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"shipmentOptions"
 					]
 				}
 			},
