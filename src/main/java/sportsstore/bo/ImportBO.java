@@ -146,7 +146,7 @@ public class ImportBO {
 
             if (importDAO.getProductsInImport(id).isEmpty()) {
                 if (importDAO.createImportedProduct(importDTO)) {
-                    if (!result.getStatus().equals("Canceled")) {
+                    if (result.getStatus().equals("Finished")) {
                         if (!EditImportedProductQuantity(importDTO, true))
                             return false;
                     }
@@ -155,8 +155,8 @@ public class ImportBO {
             } else {
                 if (importDAO.removeImportedProduct(id)) {
                     if (importDAO.createImportedProduct(importDTO)) {
-                        if ((result.getStatus().equals("Processing") && importDTO.getStatus().equals("Canceled"))) {
-                            if (!EditImportedProductQuantity(importDTO, false))
+                        if ((result.getStatus().equals("Processing") && importDTO.getStatus().equals("Finished"))) {
+                            if (!EditImportedProductQuantity(importDTO, true))
                                 return false;
                         }
                         return true;
