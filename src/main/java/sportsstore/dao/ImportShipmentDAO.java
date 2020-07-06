@@ -110,8 +110,8 @@ public class ImportShipmentDAO extends AbstractDAO {
         try {
             String query = "EXEC USP_UpdateImportShipment ? , ? , ? , ? , ? , ?";
             if (ImportShipmentDAO.super.ExecuteNonQuery(query,
-                    new Object[] { input.getId(), input.getImportID(), input.getDeliverDate(),
-                            input.getShipmentStatus(), input.getShipmentID(), input.getShipmentCompany() }) == 1)
+                    new Object[] { input.getId(), input.getImportID(), input.getDeliverDate(), input.getShipmentID(),
+                            input.getShipmentCompany(), input.getShipmentStatus() }) == 1)
                 return true;
         } catch (Exception e) {
             System.out.println(e.toString());

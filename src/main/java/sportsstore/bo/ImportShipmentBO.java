@@ -67,6 +67,7 @@ public class ImportShipmentBO {
 
     public boolean createShipment(ImportShipmentDTO newShipment) throws Exception {
         ImportShipmentDAO importShipmentDAO = null;
+
         try {
             importShipmentDAO = new ImportShipmentDAO();
             return importShipmentDAO.create(newShipment);
