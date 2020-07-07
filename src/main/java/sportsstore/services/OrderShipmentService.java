@@ -83,7 +83,7 @@ public class OrderShipmentService {
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
         }
-        return Response.status(Response.Status.NOT_FOUND).entity(result).build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     // @GET
@@ -121,6 +121,6 @@ public class OrderShipmentService {
             //
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
         }
-        return Response.status(Response.Status.NOT_FOUND).entity(result).build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }
