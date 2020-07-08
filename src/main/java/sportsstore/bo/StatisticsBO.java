@@ -16,7 +16,9 @@ import java.util.List;
 import sportsstore.dao.StatisticsDAO;
 import sportsstore.dto.MonthlyIncomeDTO;
 import sportsstore.dto.YearlyIncomeDTO;
- 
+import sportsstore.dto.ProductYearlyIncomeDTO;
+import sportsstore.dto.StockDTO;
+import sportsstore.dto.ProductMonthlyIncomeDTO;
 
 /**
  *
@@ -58,6 +60,55 @@ public class StatisticsBO {
             statisticsDAO = new StatisticsDAO();
 
             List<YearlyIncomeDTO> result = statisticsDAO.getYearlyIncomes(yearBegin, yearEnd);
+
+            return result;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (statisticsDAO != null)
+                statisticsDAO.closeConnection();
+        }
+    }
+
+    public List<ProductYearlyIncomeDTO> getProductYearlyIncomes(int yearBegin, int yearEnd, int productID) throws Exception {
+        StatisticsDAO statisticsDAO = null;
+        try {
+            // format lai date cho dung chuan
+            statisticsDAO = new StatisticsDAO();
+
+            List<ProductYearlyIncomeDTO> result = statisticsDAO.getProductYearlyIncomes(yearBegin, yearEnd, productID);
+
+            return result;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (statisticsDAO != null)
+                statisticsDAO.closeConnection();
+        }
+    }
+    public List<ProductMonthlyIncomeDTO> getProductMonthlyIncomes(String dateBegin, String dateEnd, int productID) throws Exception {
+        StatisticsDAO statisticsDAO = null;
+        try {
+
+            statisticsDAO = new StatisticsDAO();
+
+            List<ProductMonthlyIncomeDTO> result = statisticsDAO.getProductMonthlyIncomes(formatDateString(dateBegin, false),
+                    formatDateString(dateEnd, true), productID);
+
+            return result;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (statisticsDAO != null)
+                statisticsDAO.closeConnection();
+        }
+    }
+    public StockDTO calculateStock(int productID) throws Exception {
+        StatisticsDAO statisticsDAO = null;
+        try { 
+            statisticsDAO = new StatisticsDAO();
+
+            StockDTO result = statisticsDAO.calculateStock(productID);
 
             return result;
         } catch (Exception e) {

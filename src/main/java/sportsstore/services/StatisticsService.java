@@ -27,8 +27,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import sportsstore.bo.StatisticsBO;
+
 import sportsstore.dto.MonthlyIncomeDTO;
 import sportsstore.dto.YearlyIncomeDTO;
+import sportsstore.dto.ProductYearlyIncomeDTO;
+import sportsstore.dto.StockDTO;
+import sportsstore.dto.ProductMonthlyIncomeDTO;
+
 import sportsstore.dao.StatisticsDAO;
 
 @Stateless
@@ -62,7 +67,7 @@ public class StatisticsService {
         StatisticsBO statisticsBO = new StatisticsBO();
         List<YearlyIncomeDTO> result = null;
         try {
-            result = statisticsBO.getYearlyIncomes(yearBegin,yearEnd);
+            result = statisticsBO.getYearlyIncomes(yearBegin, yearEnd);
             if (!result.isEmpty())
                 return Response.ok().entity(result).build();
         } catch (Exception e) {
@@ -71,4 +76,53 @@ public class StatisticsService {
         return Response.status(Response.Status.NOT_FOUND).entity(result).build();
     }
 
+    @GET
+    @Path("productyearlyincome")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProductYearlyIncome(@QueryParam("begin") int yearBegin, @QueryParam("end") int yearEnd,
+            @QueryParam("pid") int productID) {
+        StatisticsBO statisticsBO = new StatisticsBO();
+        List<ProductYearlyIncomeDTO> result = null;
+        try {
+            result = statisticsBO.getProductYearlyIncomes(yearBegin, yearEnd, productID);
+            if (!result.isEmpty())
+                return Response.ok().entity(result).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).entity(result).build();
+    }
+
+    @GET
+    @Path("productmonthlyincome")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProductMonthlyIncome(@QueryParam("begin") String begin, @QueryParam("end") String end,
+            @QueryParam("pid") int productID) {
+        StatisticsBO statisticsBO = new StatisticsBO();
+        List<ProductMonthlyIncomeDTO> result = null;
+        try {
+            result = statisticsBO.getProductMonthlyIncomes(begin, end, productID);
+            if (!result.isEmpty())
+                return Response.ok().entity(result).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).entity(result).build();
+    }
+
+    @GET
+    @Path("calculatestock")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response calculateStock(@QueryParam("pid") int productID) {
+        StatisticsBO statisticsBO = new StatisticsBO();
+        StockDTO result = null;
+        try {
+            result = statisticsBO.calculateStock(productID);
+            if (result != null)
+                return Response.ok().entity(result).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).entity(result).build();
+    }
 }

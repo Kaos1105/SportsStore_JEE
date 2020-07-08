@@ -68,6 +68,106 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Product Yearly Income",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/statistics/productyearlyincome?begin=2019&end=2020&pid=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"statistics",
+						"productyearlyincome"
+					],
+					"query": [
+						{
+							"key": "begin",
+							"value": "2019"
+						},
+						{
+							"key": "end",
+							"value": "2020"
+						},
+						{
+							"key": "pid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product Monthly Income",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/statistics/productmonthlyincome?begin=01/2019&end=12/2020&pid=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"statistics",
+						"productmonthlyincome"
+					],
+					"query": [
+						{
+							"key": "begin",
+							"value": "01/2019"
+						},
+						{
+							"key": "end",
+							"value": "12/2020"
+						},
+						{
+							"key": "pid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Stock Calculation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/statistics/calculatestock?pid=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"statistics",
+						"calculatestock"
+					],
+					"query": [
+						{
+							"key": "pid",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

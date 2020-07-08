@@ -2,18 +2,20 @@ package sportsstore.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "YearlyIncomeDTO")
-public class YearlyIncomeDTO {
+@XmlRootElement(name = "ProductYearlyIncomeDTO")
+public class ProductYearlyIncomeDTO {
     private Integer year;
     private Long income;
+    private Long quantity;
 
-    public YearlyIncomeDTO() {
+    public ProductYearlyIncomeDTO() {
 
     }
 
-    public YearlyIncomeDTO(final int year, final long income) {
+    public ProductYearlyIncomeDTO(final int year, final long income, final long quantity) {
         this.year = year;
         this.income = income;
+        this.quantity = quantity;
     }
 
     public int getYear() {
@@ -30,5 +32,11 @@ public class YearlyIncomeDTO {
 
     public void setIncome(long income) {
         this.income = income;
+    }
+    public long getQuantity(){
+        return this.quantity;
+    }
+    public  void setQuantity(long quantity){
+        this.quantity = quantity;
     }
 }
