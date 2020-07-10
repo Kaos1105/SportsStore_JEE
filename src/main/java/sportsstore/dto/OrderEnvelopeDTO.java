@@ -22,5 +22,4 @@ public class OrderEnvelopeDTO {
     public void setResultCount(Integer resultCount) {
         this.resultCount = resultCount;
     }
-
 }

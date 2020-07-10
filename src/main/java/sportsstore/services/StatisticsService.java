@@ -25,7 +25,9 @@ import javax.ws.rs.core.Response;
 
 import sportsstore.bo.StatisticsBO;
 import sportsstore.dto.IncomeDTO;
+import sportsstore.dto.IncomeEnvelopeDTO;
 import sportsstore.dto.RevenueDTO;
+import sportsstore.dto.RevenueEnvelopeDTO;
 
 @Stateless
 @Path("statistics")
@@ -38,13 +40,13 @@ public class StatisticsService {
     @GET
     @Path("income")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getIncomes(@QueryParam("begin") String begin, @QueryParam("end") String end,
-            @QueryParam("id") Integer id) {
+    public Response getIncomes(@QueryParam("offset") int offset, @QueryParam("limit") int limit,
+            @QueryParam("begin") String begin, @QueryParam("end") String end, @QueryParam("id") Integer id) {
         StatisticsBO statisticsBO = new StatisticsBO();
-        List<IncomeDTO> result = null;
+        IncomeEnvelopeDTO result = null;
         try {
-            result = statisticsBO.getIncomes(begin, end, id);
-            if (!result.isEmpty())
+            result = statisticsBO.getIncomes(offset, limit, begin, end, id);
+            if (result.getIncomes() != null)
                 return Response.ok().entity(result).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
@@ -55,13 +57,13 @@ public class StatisticsService {
     @GET
     @Path("revenue")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getRevenues(@QueryParam("begin") String begin, @QueryParam("end") String end,
-            @QueryParam("id") Integer id) {
+    public Response getRevenues(@QueryParam("offset") int offset, @QueryParam("limit") int limit,
+            @QueryParam("begin") String begin, @QueryParam("end") String end, @QueryParam("id") Integer id) {
         StatisticsBO statisticsBO = new StatisticsBO();
-        List<RevenueDTO> result = null;
+        RevenueEnvelopeDTO result = null;
         try {
-            result = statisticsBO.getRevenues(begin, end, id);
-            if (!result.isEmpty())
+            result = statisticsBO.getRevenues(offset, limit, begin, end, id);
+            if (result.getRevenues() != null)
                 return Response.ok().entity(result).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();

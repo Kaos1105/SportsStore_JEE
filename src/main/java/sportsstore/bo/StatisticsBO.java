@@ -12,7 +12,9 @@ import java.util.List;
 import sportsstore.dao.IncomeDAO;
 import sportsstore.dao.RevenueDAO;
 import sportsstore.dto.IncomeDTO;
+import sportsstore.dto.IncomeEnvelopeDTO;
 import sportsstore.dto.RevenueDTO;
+import sportsstore.dto.RevenueEnvelopeDTO;
 
 /**
  *
@@ -20,7 +22,8 @@ import sportsstore.dto.RevenueDTO;
  */
 public class StatisticsBO {
 
-    public List<IncomeDTO> getIncomes(String strDateBegin, String strDateEnd, Integer productId) throws Exception {
+    public IncomeEnvelopeDTO getIncomes(int offset, int limit, String strDateBegin, String strDateEnd,
+            Integer productId) throws Exception {
         IncomeDAO incomeDAO = null;
         try {
 
@@ -37,7 +40,7 @@ public class StatisticsBO {
             }
             incomeDAO = new IncomeDAO();
 
-            List<IncomeDTO> result = incomeDAO.getIncomes(beginDate, endDate, productId);
+            IncomeEnvelopeDTO result = incomeDAO.getIncomes(offset, limit, beginDate, endDate, productId);
 
             return result;
         } catch (Exception e) {
@@ -47,7 +50,8 @@ public class StatisticsBO {
         }
     }
 
-    public List<RevenueDTO> getRevenues(String strDateBegin, String strDateEnd, Integer productId) throws Exception {
+    public RevenueEnvelopeDTO getRevenues(int offset, int limit, String strDateBegin, String strDateEnd,
+            Integer productId) throws Exception {
         RevenueDAO revenueDAO = null;
         try {
 
@@ -64,7 +68,7 @@ public class StatisticsBO {
             }
             revenueDAO = new RevenueDAO();
 
-            List<RevenueDTO> result = revenueDAO.getRevenues(beginDate, endDate, productId);
+            RevenueEnvelopeDTO result = revenueDAO.getRevenues(offset, limit, beginDate, endDate, productId);
 
             return result;
         } catch (Exception e) {
