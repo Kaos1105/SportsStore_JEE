@@ -21,11 +21,15 @@ select TotalIncome.*, ISNULL(ProductIncome.p_ImportQuantity,0) as p_ImportQuanti
         from [Order] o
             inner join [OrderedProduct] op on op.OrderID = o.ID
             inner join [Product] p on op.ProductID = p.ID
+			and o.status = 'Finished'
             FULL OUTER JOIN [Import] i
             inner join [ImportedProduct] ip on ip.ImportID = i.ID
-            inner join [Product] p2 on p2.ID = ip.ProductID on Month(o.PlacementDate) = Month(i.PlacementDate)  
+            inner join [Product] p2 on p2.ID = ip.ProductID 
+			and i.status = 'Finished'
+			on Month(o.PlacementDate) = Month(i.PlacementDate)  
 			and Year(o.PlacementDate) = Year(i.PlacementDate)
-            where o.status = 'Finished' and i.status = 'Finished'
+			and p.ID=@id and p2.ID=@id
+            
     ) as t
     where PlacementDate >= @begin
         AND PlacementDate <= @end
@@ -44,11 +48,14 @@ select TotalIncome.*, ISNULL(ProductIncome.p_ImportQuantity,0) as p_ImportQuanti
         from [Order] o
             inner join [OrderedProduct] op on op.OrderID = o.ID
             inner join [Product] p on op.ProductID = p.ID
+			and o.status = 'Finished'
             FULL OUTER JOIN [Import] i
             inner join [ImportedProduct] ip on ip.ImportID = i.ID
-            inner join [Product] p2 on p2.ID = ip.ProductID on Month(o.PlacementDate) = Month(i.PlacementDate)
+            inner join [Product] p2 on p2.ID = ip.ProductID 
+			and i.status = 'Finished' 
+			on Month(o.PlacementDate) = Month(i.PlacementDate)
 			and Year(o.PlacementDate) = Year(i.PlacementDate)
-            where o.status = 'Finished' and i.status = 'Finished'  and p.ID=@id
+            and p.ID=@id and p2.ID=@id
     ) as t
     where PlacementDate >= @begin
         AND PlacementDate <= @end
@@ -57,7 +64,7 @@ select TotalIncome.*, ISNULL(ProductIncome.p_ImportQuantity,0) as p_ImportQuanti
 END
  GO
 
-  EXEC USP_IncomeStatistic @begin =N'2020-1-1', @end = N'2021-8-8', @id=2
+  EXEC USP_IncomeStatistic @begin =N'2020-9-1', @end = N'2021-8-8', @id=3
 
  --Doanh thu theo sản phẩm
  CREATE or alter PROCEDURE USP_ProductIncomeStatistic(@begin Date,
@@ -78,11 +85,14 @@ BEGIN
         from [Order] o
             inner join [OrderedProduct] op on op.OrderID = o.ID
             inner join [Product] p on op.ProductID = p.ID
+			and o.status = 'Finished'
             FULL OUTER JOIN [Import] i
             inner join [ImportedProduct] ip on ip.ImportID = i.ID
-            inner join [Product] p2 on p2.ID = ip.ProductID on Month(o.PlacementDate) = Month(i.PlacementDate)
+            inner join [Product] p2 on p2.ID = ip.ProductID 
+			and i.status = 'Finished'
+			on Month(o.PlacementDate) = Month(i.PlacementDate)
 			and Year(o.PlacementDate) = Year(i.PlacementDate) 
-            where o.status = 'Finished' and i.status = 'Finished' and p.ID=@id
+			and p.ID=@id and p2.ID=@id
     ) as t
     where PlacementDate >= @begin
         AND PlacementDate <= @end
@@ -91,7 +101,7 @@ BEGIN
 END
  GO
 
- EXEC USP_ProductIncomeStatistic @begin =N'2020-1-1', @end = N'2021-8-8', @id=2
+ EXEC USP_ProductIncomeStatistic @begin =N'2020-9-1', @end = N'2021-8-8', @id=3
 
  -- Tổng Doanh số
 CREATE or alter PROCEDURE USP_RevenueStatistic(@begin Date,
@@ -113,7 +123,7 @@ select Year(PlacementDate) as YEAR,
         from [Order] o
             inner join [OrderedProduct] op on op.OrderID = o.ID
             inner join [Product] p on op.ProductID = p.ID
-            where o.status = 'Finished' 
+            and o.status = 'Finished' 
     ) as t
     where PlacementDate >= @begin
         AND PlacementDate <= @end
@@ -132,7 +142,7 @@ select Year(PlacementDate) as YEAR,
         from [Order] o
             inner join [OrderedProduct] op on op.OrderID = o.ID
             inner join [Product] p on op.ProductID = p.ID 
-            where o.status = 'Finished'  AND  p.ID = @ID
+            and o.status = 'Finished'  AND  p.ID = @ID
     ) as t
     where PlacementDate >= @begin
         AND PlacementDate <= @end
@@ -143,7 +153,7 @@ select Year(PlacementDate) as YEAR,
 END
  GO
 
- EXEC USP_RevenueStatistic @begin =N'2020-1-1', @end = N'2021-7-7', @id=2
+ EXEC USP_RevenueStatistic @begin =N'2020-1-1', @end = N'2021-7-7', @id=3
 
 
 
