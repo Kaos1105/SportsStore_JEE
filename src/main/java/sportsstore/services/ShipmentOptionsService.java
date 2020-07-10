@@ -18,7 +18,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import sportsstore.bo.ProductBO;
 import sportsstore.bo.ShipmentOptionsBO;
 import sportsstore.dto.ShipmentOptionsDTO;
 

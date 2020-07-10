@@ -28,8 +28,6 @@ public class JwtGenerator implements IJwtGenerator {
 
     @Override
     public String createJWT(UserDTO user) {
-        // TODO Auto-generated method stub
-
         // create signing Key
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secretString);

@@ -50,11 +50,11 @@ public class UserBO {
 
     public UserDTO createUser(String userName, String email, String plainPassword, String role) throws Exception {
         UserDAO userDAO = null;
-        JwtGenerator generator = null;
+        // JwtGenerator generator = null;
 
         try {
             userDAO = new UserDAO();
-            generator = new JwtGenerator();
+            // generator = new JwtGenerator();
             UserDTO userDTO = userDAO.getUserFromEmail(email);
             if (userDTO.getUserName() == null || userDTO.getUserName().isEmpty()) {
                 if (userDAO.createUser(userName, email, hashPassword(plainPassword), role)) {

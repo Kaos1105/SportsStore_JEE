@@ -16,10 +16,8 @@ public class ProductOptionsDAO extends AbstractDAO {
 
     public ProductOptionsDTO get() throws Exception {
         ProductOptionsDTO productOptionsDTO = new ProductOptionsDTO();
-        ArrayList<String> categories = new ArrayList<String>() {
-        };
-        ArrayList<String> brands = new ArrayList<String>() {
-        };
+        ArrayList<String> categories = new ArrayList<String>();
+        ArrayList<String> brands = new ArrayList<String>();
         try {
             String query = "select distinct Category from Product";
             ResultSet rs = ProductOptionsDAO.super.ExecuteQuery(query, null);

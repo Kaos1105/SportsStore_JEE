@@ -16,11 +16,12 @@ public class ShipmentOptionsDAO extends AbstractDAO {
 
     public ShipmentOptionsDTO get() throws Exception {
         ShipmentOptionsDTO shipmentOptionsDTO = new ShipmentOptionsDTO();
-        ArrayList<Integer> importIDs = new ArrayList<Integer>() {
-        };
-        ArrayList<Integer> orderIDs = new ArrayList<Integer>() {
-        };
-        try {
+        ArrayList<Integer> importIDs = new ArrayList<>();
+        ArrayList<Integer> orderIDs = new ArrayList<>();
+        ;
+        try
+
+        {
             String query = "EXEC USP_ImportIDFilter";
             ResultSet rs = ShipmentOptionsDAO.super.ExecuteQuery(query, null);
             while (rs.next()) {

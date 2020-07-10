@@ -14,7 +14,6 @@ public class UserDAO extends AbstractDAO {
 
     public UserDAO(Connection conn) {
         super(conn);
-        // TODO Auto-generated constructor stub
     }
 
     public void writeUserDTO(UserDTO userDTO, ResultSet rs) throws Exception {

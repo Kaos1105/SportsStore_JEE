@@ -32,7 +32,6 @@ public class AuthenticateContext implements SecurityContext {
 
     @Override
     public boolean isUserInRole(String role) {
-        // TODO Auto-generated method stub
         return userDTO.getRole().equals(role);
     }
 }

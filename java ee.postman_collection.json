@@ -1422,6 +1422,74 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Income",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/statistics/income?begin=2020-01-01&end=2021-08-08",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"statistics",
+						"income"
+					],
+					"query": [
+						{
+							"key": "begin",
+							"value": "2020-01-01"
+						},
+						{
+							"key": "end",
+							"value": "2021-08-08"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Revenue",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/SportsStore-1.0/rest/statistics/revenue?begin=2020-01-01&end=2021-08-08&id=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"SportsStore-1.0",
+						"rest",
+						"statistics",
+						"revenue"
+					],
+					"query": [
+						{
+							"key": "begin",
+							"value": "2020-01-01"
+						},
+						{
+							"key": "end",
+							"value": "2021-08-08"
+						},
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
