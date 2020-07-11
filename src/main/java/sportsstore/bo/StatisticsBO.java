@@ -36,7 +36,7 @@ public class StatisticsBO {
                 endDate = Date.valueOf(strDateEnd);
             } else {
                 beginDate = Date.valueOf(LocalDate.now());
-                endDate = Date.valueOf(LocalDate.now());
+                endDate = Date.valueOf(LocalDate.now().plusMonths(12));
             }
             incomeDAO = new IncomeDAO();
 
